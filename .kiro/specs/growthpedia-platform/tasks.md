@@ -14,7 +14,7 @@ Implementasi GrowthPedia sebagai modular monolith Laravel + React/Inertia.js. Ta
     - Create base directory structure: `app/Modules/`, `app/Shared/`, `resources/js/Pages/`, `resources/js/Components/`
     - _Requirements: All (foundation)_
 
-  - [ ] 1.2 Create shared DTOs, value objects, and base classes
+  - [x] 1.2 Create shared DTOs, value objects, and base classes
     - Create `app/Shared/DTOs/` with base DTO abstract class
     - Create shared value objects (DateRangeDTO, PaginationDTO)
     - Create base Service interface, base Action class, base Exception classes
