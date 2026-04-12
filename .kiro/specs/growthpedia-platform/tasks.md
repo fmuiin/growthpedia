@@ -21,7 +21,7 @@ Implementasi GrowthPedia sebagai modular monolith Laravel + React/Inertia.js. Ta
     - Set up Laravel service provider for module registration
     - _Requirements: All (foundation)_
 
-  - [ ] 1.3 Scaffold all 10 module directories with standard structure
+  - [x] 1.3 Scaffold all 10 module directories with standard structure
     - Create directory structure for each module: Course, Lesson, Subscription, Progress, Certificate, Discussion, User, Payment, Admin, Catalog
     - Each module gets: Controllers/, Models/, Services/, Actions/, DTOs/, Events/, Listeners/, Requests/, Policies/, Exceptions/, Routes/web.php, Tests/Unit/, Tests/Property/, Tests/Integration/
     - Register module service providers in `config/app.php`
