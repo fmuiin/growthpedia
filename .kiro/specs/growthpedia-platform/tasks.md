@@ -73,7 +73,7 @@ Implementasi GrowthPedia sebagai modular monolith Laravel + React/Inertia.js. Ta
     - _Requirements: 11.1, 11.3, 11.4, 11.6_
 
 - [ ] 3. Implement Course and Lesson modules
-  - [ ] 3.1 Create Course, CourseModule, and Lesson models and migrations
+  - [x] 3.1 Create Course, CourseModule, and Lesson models and migrations
     - Create `courses` table migration (instructor_id FK, title, description, category, status enum, published_at)
     - Create `course_modules` table migration (course_id FK, title, sort_order)
     - Create `lessons` table migration (course_module_id FK, title, content_type enum, content_body, video_url, sort_order)
@@ -81,7 +81,7 @@ Implementasi GrowthPedia sebagai modular monolith Laravel + React/Inertia.js. Ta
     - Create all DTOs: CreateCourseDTO, UpdateCourseDTO, CourseDTO, CourseDetailDTO, CreateModuleDTO, ModuleDTO, CreateLessonDTO, LessonDTO
     - _Requirements: 1.1, 1.2, 1.3_
 
-  - [ ] 3.2 Implement CourseService
+  - [x] 3.2 Implement CourseService
     - Implement `createCourse()`: validate input, create course with unique ID, assign instructor
     - Implement `addModule()`: associate module with course, preserve sort_order
     - Implement `addLesson()`: store lesson content, associate with module in sort_order
@@ -92,14 +92,14 @@ Implementasi GrowthPedia sebagai modular monolith Laravel + React/Inertia.js. Ta
     - Implement `getCourseWithStructure()`: return course with modules and lessons in sort_order
     - _Requirements: 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7_
 
-  - [ ] 3.3 Create Course controllers, Form Requests, and Policies
+  - [x] 3.3 Create Course controllers, Form Requests, and Policies
     - Create CourseController (CRUD, publish/unpublish), ModuleController, LessonController
     - Create Form Request validation for each action
     - Create CoursePolicy restricting actions to course owner (instructor) and admins
     - Define routes in Course module's `Routes/web.php`
     - _Requirements: 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7_
 
-  - [ ] 3.4 Create React Course pages and components
+  - [x] 3.4 Create React Course pages and components
     - Create CourseCreate, CourseEdit pages for instructors
     - Create LessonView page for learners (text, video, mixed content display)
     - Create ModuleList, LessonPlayer components
