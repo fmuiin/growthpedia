@@ -118,7 +118,7 @@ Implementasi GrowthPedia sebagai modular monolith Laravel + React/Inertia.js. Ta
     - Test unpublish preserves enrollment data
     - _Requirements: 1.6, 2.1, 1.7_
 
-- [ ] 4. Checkpoint — Ensure all tests pass
+- [x] 4. Checkpoint — Ensure all tests pass
   - Ensure all tests pass, ask the user if questions arise.
 
 - [ ] 5. Implement MembershipPlan and Subscription modules
