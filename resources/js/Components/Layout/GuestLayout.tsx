@@ -16,7 +16,7 @@ export default function GuestLayout({ children }: GuestLayoutProps) {
                     <h1 className="text-3xl font-bold text-indigo-600">GrowthPedia</h1>
                 </div>
 
-                {flash.success && (
+                {flash?.success && (
                     <div
                         className="mb-4 rounded-xl border border-green-200 bg-green-50 px-4 py-3 text-sm text-green-700"
                         role="alert"
@@ -25,7 +25,7 @@ export default function GuestLayout({ children }: GuestLayoutProps) {
                     </div>
                 )}
 
-                {flash.error && (
+                {flash?.error && (
                     <div
                         className="mb-4 rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700"
                         role="alert"
