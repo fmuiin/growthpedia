@@ -28,13 +28,13 @@ Implementasi GrowthPedia sebagai modular monolith Laravel + React/Inertia.js. Ta
     - _Requirements: All (foundation)_
 
 - [ ] 2. Implement User module — authentication and authorization
-  - [ ] 2.1 Create User model, migrations, and DTOs
+  - [x] 2.1 Create User model, migrations, and DTOs
     - Create `users` table migration with all fields from design (role enum, email_verified_at, is_suspended, failed_login_attempts, locked_until)
     - Create User Eloquent model with casts and relationships
     - Create RegisterDTO, UserDTO, and related DTOs
     - _Requirements: 11.1, 11.7_
 
-  - [ ] 2.2 Implement UserService — registration, email verification, and login logic
+  - [x] 2.2 Implement UserService — registration, email verification, and login logic
     - Implement `register()`: create learner account, dispatch `UserRegistered` event, send verification email
     - Implement `verifyEmail()`: validate token within 24-hour window, activate account
     - Implement login logic: generic error on invalid credentials, track failed attempts, lock account after 5 failures in 15 minutes
@@ -44,14 +44,14 @@ Implementasi GrowthPedia sebagai modular monolith Laravel + React/Inertia.js. Ta
     - Implement password reset with 1-hour token expiry
     - _Requirements: 11.1, 11.2, 11.3, 11.4, 11.5, 11.6, 11.7, 8.2, 8.3, 8.4, 8.5_
 
-  - [ ] 2.3 Create Auth controllers and Form Requests
+  - [x] 2.3 Create Auth controllers and Form Requests
     - Create RegisterController, LoginController, VerifyEmailController, ForgotPasswordController
     - Create Form Request validation classes for each endpoint
     - Set up role-based middleware (learner, instructor, admin)
     - Create authorization Policies for User module
     - _Requirements: 11.1, 11.3, 11.4, 11.6, 11.7_
 
-  - [ ] 2.4 Create React Auth pages
+  - [x] 2.4 Create React Auth pages
     - Create Login, Register, ForgotPassword, ResetPassword, VerifyEmail pages
     - Create TypeScript interfaces for User DTOs
     - Wire pages with Inertia.js routing
