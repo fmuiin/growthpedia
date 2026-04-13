@@ -121,8 +121,8 @@ Implementasi GrowthPedia sebagai modular monolith Laravel + React/Inertia.js. Ta
 - [x] 4. Checkpoint — Ensure all tests pass
   - Ensure all tests pass, ask the user if questions arise.
 
-- [ ] 5. Implement MembershipPlan and Subscription modules
-  - [ ] 5.1 Create MembershipPlan, CourseMembershipPlan, and Subscription models and migrations
+- [-] 5. Implement MembershipPlan and Subscription modules
+  - [x] 5.1 Create MembershipPlan, CourseMembershipPlan, and Subscription models and migrations
     - Create `membership_plans` table migration (name, description, price, billing_frequency enum, is_active)
     - Create `course_membership_plan` pivot table migration
     - Create `subscriptions` table migration (user_id FK, membership_plan_id FK, status enum, starts_at, ends_at, grace_period_ends_at, cancelled_at, gateway_subscription_id)
@@ -130,14 +130,14 @@ Implementasi GrowthPedia sebagai modular monolith Laravel + React/Inertia.js. Ta
     - Create all DTOs: MembershipPlanDTO, SubscriptionDTO, PaymentTokenDTO
     - _Requirements: 3.1, 4.1_
 
-  - [ ] 5.2 Implement MembershipPlan management in Admin module
+  - [-] 5.2 Implement MembershipPlan management in Admin module
     - Implement create plan: store all fields (name, description, price, billing_frequency, course set)
     - Implement update plan: apply changes to new subscriptions only, preserve existing terms
     - Implement deactivate plan: prevent new subscriptions, allow existing to continue
     - Implement delete plan protection: reject if active subscriptions exist, return count
     - _Requirements: 3.1, 3.2, 3.3, 3.4, 3.5_
 
-  - [ ] 5.3 Implement SubscriptionService
+  - [~] 5.3 Implement SubscriptionService
     - Implement `subscribe()`: create subscription via payment gateway, activate on success
     - Implement `handleRenewal()`: auto-charge at renewal date, set 7-day grace period on failure
     - Implement `cancel()`: stop future billing, maintain access until period end
@@ -146,7 +146,7 @@ Implementasi GrowthPedia sebagai modular monolith Laravel + React/Inertia.js. Ta
     - Implement `hasActiveSubscription()` and `getUserPlanCourseIds()` for access control checks
     - _Requirements: 4.1, 4.2, 4.3, 4.4, 4.5, 4.6, 4.7_
 
-  - [ ] 5.4 Create Subscription controllers and React pages
+  - [~] 5.4 Create Subscription controllers and React pages
     - Create SubscriptionController (subscribe, cancel, change plan)
     - Create MembershipPlanController for admin CRUD
     - Create Plans page (list available plans), Checkout page, ManageSubscription page
