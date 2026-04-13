@@ -94,6 +94,11 @@ class MembershipPlanService implements MembershipPlanServiceInterface
             throw new PlanHasActiveSubscriptionsException($activeCount);
         }
 
+        // Remove non-active subscriptions to satisfy FK constraint
+        $plan->subscriptions()
+            ->whereNotIn('status', ['active', 'grace_period'])
+            ->delete();
+
         $plan->courses()->detach();
         $plan->delete();
     }
