@@ -169,8 +169,8 @@ Implementasi GrowthPedia sebagai modular monolith Laravel + React/Inertia.js. Ta
     - Test subscription activation on payment success
     - _Requirements: 4.1, 4.2_
 
-- [ ] 6. Implement Progress and Certificate modules
-  - [ ] 6.1 Create Enrollment, LessonProgress, and Certificate models and migrations
+- [x] 6. Implement Progress and Certificate modules
+  - [x] 6.1 Create Enrollment, LessonProgress, and Certificate models and migrations
     - Create `enrollments` table migration (user_id FK, course_id FK, enrolled_at, completion_percentage, completed_at, unique constraint on user_id+course_id)
     - Create `lesson_progress` table migration (enrollment_id FK, lesson_id FK, completed_at, unique constraint on enrollment_id+lesson_id)
     - Create `certificates` table migration (enrollment_id FK unique, user_id FK, course_id FK, verification_code unique, learner_name, course_title, completed_at, pdf_path)
@@ -178,27 +178,27 @@ Implementasi GrowthPedia sebagai modular monolith Laravel + React/Inertia.js. Ta
     - Create DTOs: ProgressDTO, CourseProgressDTO, CertificateDTO
     - _Requirements: 5.1, 5.2, 6.1, 6.2_
 
-  - [ ] 6.2 Implement ProgressService
+  - [x] 6.2 Implement ProgressService
     - Implement `markLessonComplete()`: create LessonProgress record, recalculate completion percentage as `completed / total * 100`, dispatch `LessonCompleted` event
     - Implement `getCourseProgress()`: return completion percentage, completed count, remaining count
     - Implement `getNextLesson()`: find first incomplete lesson by module sort_order then lesson sort_order
     - Implement `recalculateForCourse()`: recalculate all enrollments when lesson removed (listen to `LessonRemovedFromCourse` event)
     - _Requirements: 5.1, 5.2, 5.3, 5.4, 5.5, 5.6_
 
-  - [ ] 6.3 Implement CertificateService
+  - [x] 6.3 Implement CertificateService
     - Implement `generateCertificate()`: auto-generate on 100% completion (listen to `CourseCompleted` event), store learner_name, course_title, completion date, unique verification_code
     - Implement `verifyCertificate()`: lookup by verification_code, return learner name, course title, completion date
     - Implement `downloadPdf()`: generate PDF certificate document
     - Implement `getUserCertificates()`: list all certificates for a user's profile
     - _Requirements: 6.1, 6.2, 6.3, 6.4, 6.5, 6.6_
 
-  - [ ] 6.4 Create event listeners for Progress and Certificate
+  - [x] 6.4 Create event listeners for Progress and Certificate
     - Create `LessonCompletedListener` in Progress module: update progress, check if course completed, dispatch `CourseCompleted` if 100%
     - Create `CourseCompletedListener` in Certificate module: generate certificate
     - Create `LessonRemovedFromCourseListener` in Progress module: recalculate affected enrollments
     - _Requirements: 5.1, 5.6, 6.1_
 
-  - [ ] 6.5 Create Progress and Certificate controllers and React pages
+  - [x] 6.5 Create Progress and Certificate controllers and React pages
     - Create ProgressController (course dashboard, resume course)
     - Create CertificateController (list, download, verify)
     - Create LearnerDashboard page with ProgressBar component
