@@ -221,17 +221,17 @@ Implementasi GrowthPedia sebagai modular monolith Laravel + React/Inertia.js. Ta
     - Test progress persists across sessions
     - _Requirements: 6.3, 5.5_
 
-- [ ] 7. Checkpoint — Ensure all tests pass
+- [x] 7. Checkpoint — Ensure all tests pass
   - Ensure all tests pass, ask the user if questions arise.
 
-- [ ] 8. Implement Discussion module
-  - [ ] 8.1 Create Comment model and migration
+- [x] 8. Implement Discussion module
+  - [x] 8.1 Create Comment model and migration
     - Create `comments` table migration (lesson_id FK, user_id FK, parent_comment_id FK nullable, content, is_flagged, flag_reason, flagged_by FK nullable, is_edited, edited_at)
     - Create Comment Eloquent model with self-referencing relationship for nesting
     - Create DTOs: CommentDTO, PaginatedCommentsDTO
     - _Requirements: 7.1, 7.2_
 
-  - [ ] 8.2 Implement DiscussionService
+  - [x] 8.2 Implement DiscussionService
     - Implement `createComment()`: create comment with author name and timestamp, check active subscription (or instructor/admin role)
     - Implement `replyToComment()`: nest reply under parent comment with correct parent_comment_id
     - Implement `editComment()`: update content, set is_edited=true and edited_at timestamp
@@ -239,7 +239,7 @@ Implementasi GrowthPedia sebagai modular monolith Laravel + React/Inertia.js. Ta
     - Implement `getThreadForLesson()`: return comments in chronological order, exclude flagged from public view, paginated
     - _Requirements: 7.1, 7.2, 7.3, 7.4, 7.5, 7.6, 7.7_
 
-  - [ ] 8.3 Create Discussion controllers and React components
+  - [x] 8.3 Create Discussion controllers and React components
     - Create CommentController (create, reply, edit, flag)
     - Create CommentThread, CommentForm, FlagButton components
     - Embed discussion in LessonView page

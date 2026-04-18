@@ -10,8 +10,13 @@ use App\Modules\Course\DTOs\CreateLessonDTO;
 use App\Modules\Course\Models\CourseModule;
 use App\Modules\Course\Models\Lesson;
 use App\Modules\Course\Requests\CreateLessonRequest;
+use App\Modules\Discussion\Contracts\DiscussionServiceInterface;
+use App\Modules\Discussion\DTOs\CommentDTO;
+use App\Modules\Subscription\Contracts\SubscriptionServiceInterface;
 use App\Shared\Exceptions\EntityNotFoundException;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -50,7 +55,7 @@ class LessonController extends Controller
         return redirect()->back()->with('success', 'Lesson added successfully.');
     }
 
-    public function show(int $lessonId): Response|RedirectResponse
+    public function show(Request $request, int $lessonId): Response|RedirectResponse
     {
         $lesson = Lesson::with('module.course')->find($lessonId);
 
@@ -58,8 +63,26 @@ class LessonController extends Controller
             return redirect()->back()->with('error', 'Lesson not found.');
         }
 
+        $discussionService = app(DiscussionServiceInterface::class);
+        $paginatedComments = $discussionService->getThreadForLesson($lesson->id, (int) $request->query('comment_page', 1));
+
+        $canComment = false;
+        if (Auth::check()) {
+            $user = Auth::user();
+            $canComment = in_array($user->role, ['instructor', 'admin'])
+                || app(SubscriptionServiceInterface::class)->hasActiveSubscription($user->id);
+        }
+
         return Inertia::render('Course/LessonView', [
             'lesson' => $lesson,
+            'comments' => [
+                'comments' => array_map(fn ($c) => $this->serializeComment($c), $paginatedComments->comments),
+                'currentPage' => $paginatedComments->currentPage,
+                'lastPage' => $paginatedComments->lastPage,
+                'perPage' => $paginatedComments->perPage,
+                'total' => $paginatedComments->total,
+            ],
+            'canComment' => $canComment,
         ]);
     }
 
@@ -86,5 +109,28 @@ class LessonController extends Controller
         }
 
         return redirect()->back()->with('success', 'Lesson deleted successfully.');
+    }
+
+    /**
+     * @return array<string, mixed>
+     */
+    private function serializeComment(CommentDTO $comment): array
+    {
+        return [
+            'id' => $comment->id,
+            'lessonId' => $comment->lessonId,
+            'userId' => $comment->userId,
+            'parentCommentId' => $comment->parentCommentId,
+            'content' => $comment->content,
+            'isFlagged' => $comment->isFlagged,
+            'flagReason' => $comment->flagReason,
+            'flaggedBy' => $comment->flaggedBy,
+            'isEdited' => $comment->isEdited,
+            'editedAt' => $comment->editedAt?->toIso8601String(),
+            'createdAt' => $comment->createdAt->toIso8601String(),
+            'updatedAt' => $comment->updatedAt->toIso8601String(),
+            'authorName' => $comment->authorName,
+            'replies' => array_map(fn (CommentDTO $r) => $this->serializeComment($r), $comment->replies),
+        ];
     }
 }

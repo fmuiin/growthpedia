@@ -2,7 +2,9 @@ import { router } from '@inertiajs/react';
 import AppLayout from '@/Components/Layout/AppLayout';
 import LessonPlayer from '@/Components/Course/LessonPlayer';
 import ModuleList from '@/Components/Course/ModuleList';
+import CommentThread from '@/Components/Discussion/CommentThread';
 import type { LessonType, CourseDetailType, ModuleType } from '@/Types/course';
+import type { PaginatedCommentsType } from '@/Types/discussion';
 
 interface LessonViewProps {
     lesson: LessonType & {
@@ -10,9 +12,11 @@ interface LessonViewProps {
             course: CourseDetailType;
         };
     };
+    comments: PaginatedCommentsType;
+    canComment: boolean;
 }
 
-export default function LessonView({ lesson }: LessonViewProps) {
+export default function LessonView({ lesson, comments, canComment }: LessonViewProps) {
     const course = lesson.module.course;
 
     function handleLessonSelect(lessonId: number) {
@@ -36,6 +40,15 @@ export default function LessonView({ lesson }: LessonViewProps) {
                                 {lesson.contentType}
                             </span>
                         </div>
+                    </div>
+
+                    {/* Discussion section */}
+                    <div className="mt-8 border-t border-gray-200 pt-8">
+                        <CommentThread
+                            lessonId={lesson.id}
+                            comments={comments}
+                            canComment={canComment}
+                        />
                     </div>
                 </div>
 
