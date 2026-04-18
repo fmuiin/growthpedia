@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use App\Modules\Admin\Controllers\MembershipPlanController;
+use App\Modules\Admin\Controllers\RefundController;
 use Illuminate\Support\Facades\Route;
 
 // Admin module routes
@@ -14,4 +15,6 @@ Route::middleware(['web', 'auth', 'role:admin'])->prefix('admin')->group(functio
     Route::put('/plans/{plan}', [MembershipPlanController::class, 'update'])->name('admin.plans.update');
     Route::post('/plans/{plan}/deactivate', [MembershipPlanController::class, 'deactivate'])->name('admin.plans.deactivate');
     Route::delete('/plans/{plan}', [MembershipPlanController::class, 'destroy'])->name('admin.plans.destroy');
+
+    Route::post('/subscriptions/{subscription}/refund', [RefundController::class, 'refund'])->name('admin.subscriptions.refund');
 });

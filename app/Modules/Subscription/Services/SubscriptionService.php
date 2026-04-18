@@ -6,6 +6,7 @@ namespace App\Modules\Subscription\Services;
 
 use App\Modules\Payment\Contracts\PaymentGatewayInterface;
 use App\Modules\Payment\DTOs\PaymentRequestDTO;
+use App\Modules\Payment\Models\PaymentTransaction;
 use App\Modules\Subscription\Contracts\SubscriptionServiceInterface;
 use App\Modules\Subscription\DTOs\PaymentTokenDTO;
 use App\Modules\Subscription\DTOs\SubscriptionDTO;
@@ -61,6 +62,12 @@ class SubscriptionService implements SubscriptionServiceInterface
             'gateway_subscription_id' => $result->gatewaySubscriptionId,
         ]);
 
+        if ($result->transactionId !== null) {
+            PaymentTransaction::where('gateway_transaction_id', $result->transactionId)
+                ->whereNull('subscription_id')
+                ->update(['subscription_id' => $subscription->id]);
+        }
+
         SubscriptionActivated::dispatch($subscription->id, $userId);
 
         return $this->toSubscriptionDTO($subscription);
@@ -96,6 +103,12 @@ class SubscriptionService implements SubscriptionServiceInterface
                 'ends_at' => $newEndsAt,
                 'grace_period_ends_at' => null,
             ]);
+
+            if ($result->transactionId !== null) {
+                PaymentTransaction::where('gateway_transaction_id', $result->transactionId)
+                    ->whereNull('subscription_id')
+                    ->update(['subscription_id' => $subscription->id]);
+            }
         } else {
             $subscription->update([
                 'status' => 'grace_period',
@@ -187,6 +200,12 @@ class SubscriptionService implements SubscriptionServiceInterface
 
             if (!$result->success) {
                 throw new PaymentFailedException($result->errorMessage ?? 'Proration payment failed.');
+            }
+
+            if ($result->transactionId !== null) {
+                PaymentTransaction::where('gateway_transaction_id', $result->transactionId)
+                    ->whereNull('subscription_id')
+                    ->update(['subscription_id' => $subscription->id]);
             }
         }
 

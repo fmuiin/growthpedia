@@ -255,14 +255,14 @@ Implementasi GrowthPedia sebagai modular monolith Laravel + React/Inertia.js. Ta
     - **Property 22: Comment editing sets edited indicator** — content updated, is_edited=true, edited_at set
     - **Validates: Requirements 7.1–7.7**
 
-- [ ] 9. Implement Payment module
-  - [ ] 9.1 Create PaymentTransaction model and migration
+- [x] 9. Implement Payment module
+  - [x] 9.1 Create PaymentTransaction model and migration
     - Create `payment_transactions` table migration (subscription_id FK, gateway_transaction_id, amount, currency default 'IDR', status enum, type enum, metadata json, created_at)
     - Create PaymentTransaction Eloquent model
     - Create DTOs: PaymentRequestDTO, PaymentResultDTO, RefundResultDTO
     - _Requirements: 10.6_
 
-  - [ ] 9.2 Implement PaymentGateway interface and adapter
+  - [x] 9.2 Implement PaymentGateway interface and adapter
     - Create `PaymentGatewayInterface` contract
     - Implement gateway adapter (Stripe or Midtrans) with TLS 1.2+ enforcement
     - Implement `charge()`: send charge request, no raw card storage (use tokenization)
@@ -271,14 +271,14 @@ Implementasi GrowthPedia sebagai modular monolith Laravel + React/Inertia.js. Ta
     - Implement `retryCharge()`: retry up to 3 times with exponential backoff, notify learner on all failures
     - _Requirements: 10.1, 10.2, 10.3, 10.4, 10.5_
 
-  - [ ] 9.3 Implement webhook controller and payment event listeners
+  - [x] 9.3 Implement webhook controller and payment event listeners
     - Create WebhookController: receive webhook, verify signature, process payment events (success, failure, refund)
     - Create `PaymentSucceededListener` in Subscription module: activate subscription
     - Create `PaymentFailedListener` in Subscription module: start grace period, email learner
     - Log all transactions with transaction_id, amount, currency, status, timestamp
     - _Requirements: 10.3, 10.5, 10.6, 4.2, 4.4_
 
-  - [ ] 9.4 Wire payment into Subscription flow
+  - [x] 9.4 Wire payment into Subscription flow
     - Connect SubscriptionService.subscribe() to PaymentGateway.charge()
     - Connect SubscriptionService.handleRenewal() to PaymentGateway.retryCharge()
     - Connect admin refund action to PaymentGateway.refund()
