@@ -315,21 +315,21 @@ Implementasi GrowthPedia sebagai modular monolith Laravel + React/Inertia.js. Ta
     - **Property 35: Default catalog sort is by most recent publication date** — descending published_at order
     - **Validates: Requirements 12.2, 12.3, 12.5**
 
-- [ ] 12. Implement Admin module — user management and analytics
-  - [ ] 12.1 Implement Admin user management
+- [x] 12. Implement Admin module — user management and analytics
+  - [x] 12.1 Implement Admin user management
     - Create admin user list endpoint: paginated list with roles, subscription status, registration date
     - Wire role assignment, user suspension, and user search from UserService
     - Create admin middleware restricting access to admin role
     - _Requirements: 8.1, 8.2, 8.3, 8.4, 8.5_
 
-  - [ ] 12.2 Implement AnalyticsService
+  - [x] 12.2 Implement AnalyticsService
     - Implement `getDashboardMetrics()`: total learner count, active subscription count, total course count, total revenue for date range
     - Implement `getCourseAnalytics()`: enrollment count, average completion percentage, average rating per course
     - Implement `exportCsv()`: export analytics data as CSV file
     - Implement `getFlaggedComments()`: paginated list of flagged comments with reason, author, lesson
     - _Requirements: 9.1, 9.2, 9.3, 9.4, 9.5_
 
-  - [ ] 12.3 Create Admin React pages
+  - [x] 12.3 Create Admin React pages
     - Create UserManagement page (list, search, role assignment, suspend)
     - Create Analytics dashboard page with date range filter
     - Create ContentReview page for flagged comments
