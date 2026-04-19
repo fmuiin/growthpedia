@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Modules\Course\Models;
 
 use App\Models\User;
+use App\Modules\Progress\Models\Enrollment;
 use App\Modules\Subscription\Models\MembershipPlan;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -52,5 +53,10 @@ class Course extends Model
     public function membershipPlans(): BelongsToMany
     {
         return $this->belongsToMany(MembershipPlan::class, 'course_membership_plan');
+    }
+
+    public function enrollments(): HasMany
+    {
+        return $this->hasMany(Enrollment::class);
     }
 }

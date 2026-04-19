@@ -19,6 +19,12 @@ export default function AppLayout({ children }: AppLayoutProps) {
                                 GrowthPedia
                             </Link>
                             <div className="hidden items-center gap-6 sm:flex">
+                                <Link
+                                    href="/catalog"
+                                    className="text-sm font-medium text-gray-600 hover:text-indigo-600"
+                                >
+                                    Catalog
+                                </Link>
                                 {auth.user?.role === 'instructor' || auth.user?.role === 'admin' ? (
                                     <Link
                                         href="/courses"

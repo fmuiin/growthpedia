@@ -290,11 +290,11 @@ Implementasi GrowthPedia sebagai modular monolith Laravel + React/Inertia.js. Ta
     - **Property 30: Payment transaction logging completeness** — all required fields logged
     - **Validates: Requirements 10.3, 10.4, 10.6**
 
-- [ ] 10. Checkpoint — Ensure all tests pass
+- [x] 10. Checkpoint — Ensure all tests pass
   - Ensure all tests pass, ask the user if questions arise.
 
-- [ ] 11. Implement Catalog module
-  - [ ] 11.1 Implement CatalogService and search
+- [x] 11. Implement Catalog module
+  - [x] 11.1 Implement CatalogService and search
     - Implement `browse()`: paginated list of published courses with title, description summary, instructor name, category; default sort by published_at descending
     - Implement `search()`: match query against course title, description, and category; return results within 2 seconds
     - Implement category filter: return only courses in selected category
@@ -302,7 +302,7 @@ Implementasi GrowthPedia sebagai modular monolith Laravel + React/Inertia.js. Ta
     - Use Redis caching for catalog queries
     - _Requirements: 12.1, 12.2, 12.3, 12.4, 12.5_
 
-  - [ ] 11.2 Create Catalog controllers and React pages
+  - [x] 11.2 Create Catalog controllers and React pages
     - Create CatalogController (browse, search, detail)
     - Create CatalogIndex page with search bar, category filter, pagination
     - Create CourseDetail page with full course information
