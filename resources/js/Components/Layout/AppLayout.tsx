@@ -7,7 +7,7 @@ interface AppLayoutProps {
 }
 
 export default function AppLayout({ children }: AppLayoutProps) {
-    const { auth, flash } = usePage<PageProps>().props;
+    const { auth, subscription, flash } = usePage<PageProps>().props;
 
     return (
         <div className="min-h-screen bg-gray-50">
@@ -25,19 +25,58 @@ export default function AppLayout({ children }: AppLayoutProps) {
                                 >
                                     Catalog
                                 </Link>
-                                {auth.user?.role === 'instructor' || auth.user?.role === 'admin' ? (
+                                {auth.user?.role === 'learner' && (
+                                    <>
+                                        <Link
+                                            href="/dashboard"
+                                            className="text-sm font-medium text-gray-600 hover:text-indigo-600"
+                                        >
+                                            My Learning
+                                        </Link>
+                                        <Link
+                                            href="/certificates"
+                                            className="text-sm font-medium text-gray-600 hover:text-indigo-600"
+                                        >
+                                            Certificates
+                                        </Link>
+                                    </>
+                                )}
+                                {(auth.user?.role === 'instructor' || auth.user?.role === 'admin') && (
                                     <Link
                                         href="/courses"
                                         className="text-sm font-medium text-gray-600 hover:text-indigo-600"
                                     >
                                         My Courses
                                     </Link>
-                                ) : null}
+                                )}
+                                {auth.user?.role === 'admin' && (
+                                    <Link
+                                        href="/admin/analytics"
+                                        className="text-sm font-medium text-gray-600 hover:text-indigo-600"
+                                    >
+                                        Admin Panel
+                                    </Link>
+                                )}
                             </div>
                         </div>
                         <div className="flex items-center gap-4">
                             {auth.user ? (
                                 <div className="flex items-center gap-3">
+                                    {subscription?.isActive ? (
+                                        <Link
+                                            href="/subscription"
+                                            className="rounded-full bg-green-100 px-2.5 py-0.5 text-xs font-medium text-green-700"
+                                        >
+                                            Active Plan
+                                        </Link>
+                                    ) : auth.user.role === 'learner' ? (
+                                        <Link
+                                            href="/subscription/plans"
+                                            className="rounded-full bg-amber-100 px-2.5 py-0.5 text-xs font-medium text-amber-700"
+                                        >
+                                            Subscribe
+                                        </Link>
+                                    ) : null}
                                     <span className="text-sm text-gray-700">{auth.user.name}</span>
                                     <span className="rounded-full bg-indigo-100 px-2.5 py-0.5 text-xs font-medium text-indigo-700 capitalize">
                                         {auth.user.role}

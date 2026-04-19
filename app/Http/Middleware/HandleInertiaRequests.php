@@ -45,6 +45,10 @@ class HandleInertiaRequests extends Middleware
                     'role' => $request->user()->role,
                 ] : null,
             ],
+            'subscription' => fn () => $request->user() ? [
+                'isActive' => app(\App\Modules\Subscription\Contracts\SubscriptionServiceInterface::class)
+                    ->hasActiveSubscription($request->user()->id),
+            ] : null,
             'flash' => [
                 'success' => fn () => $request->session()->get('success'),
                 'error' => fn () => $request->session()->get('error'),

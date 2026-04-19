@@ -9,6 +9,9 @@ export interface PageProps {
     auth: {
         user: User | null;
     };
+    subscription: {
+        isActive: boolean;
+    } | null;
     flash: {
         success: string | null;
         error: string | null;

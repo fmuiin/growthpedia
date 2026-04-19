@@ -346,8 +346,8 @@ Implementasi GrowthPedia sebagai modular monolith Laravel + React/Inertia.js. Ta
     - Test flagged comments list returns correct data
     - _Requirements: 8.1, 9.5_
 
-- [ ] 13. Integration wiring and cross-module event handling
-  - [ ] 13.1 Wire all domain events and listeners
+- [x] 13. Integration wiring and cross-module event handling
+  - [x] 13.1 Wire all domain events and listeners
     - Register all events and listeners in EventServiceProvider
     - Wire `LessonCompleted` → ProgressModule (update tracker)
     - Wire `CourseCompleted` → CertificateModule (generate cert)
@@ -361,14 +361,14 @@ Implementasi GrowthPedia sebagai modular monolith Laravel + React/Inertia.js. Ta
     - Wire `AccountLocked` → send lock notification email
     - _Requirements: 2.2, 4.2, 4.4, 5.1, 5.6, 6.1, 7.5, 11.1, 11.5_
 
-  - [ ] 13.2 Wire subscription access control middleware
+  - [x] 13.2 Wire subscription access control middleware
     - Create `EnsureActiveSubscription` middleware
     - Apply middleware to lesson access, comment creation routes
     - Implement access check: user has active subscription with plan that includes the course
     - Handle grace period access (still active during grace period)
     - _Requirements: 2.3, 2.4, 7.3, 7.4_
 
-  - [ ] 13.3 Wire Inertia.js shared data and layouts
+  - [x] 13.3 Wire Inertia.js shared data and layouts
     - Configure Inertia shared data (auth user, subscription status, flash messages)
     - Create AppLayout, AdminLayout, GuestLayout components
     - Set up Inertia middleware for shared props

@@ -25,7 +25,7 @@ Route::middleware(['web', 'auth', 'role:instructor,admin'])->group(function (): 
     Route::delete('/lessons/{lesson}', [LessonController::class, 'destroy'])->name('lessons.destroy');
 });
 
-// Learner-accessible routes (any authenticated user)
-Route::middleware(['web', 'auth'])->group(function (): void {
+// Learner-accessible routes (any authenticated user with active subscription)
+Route::middleware(['web', 'auth', 'subscription'])->group(function (): void {
     Route::get('/lessons/{lesson}', [LessonController::class, 'show'])->name('lessons.show');
 });
