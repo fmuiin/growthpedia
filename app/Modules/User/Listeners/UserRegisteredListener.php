@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Modules\User\Events\UserRegistered;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\URL;
 
 class UserRegisteredListener
 {
@@ -23,7 +24,7 @@ class UserRegisteredListener
             return;
         }
 
-        $verificationUrl = url("/verify-email/{$user->id}");
+        $verificationUrl = URL::signedRoute('verification.verify', ['id' => $user->id]);
 
         Mail::raw(
             "Dear {$user->name},\n\n"

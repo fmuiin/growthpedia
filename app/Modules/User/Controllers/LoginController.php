@@ -39,7 +39,7 @@ class LoginController extends Controller
             Auth::login($user);
             $request->session()->regenerate();
 
-            return redirect()->intended('/dashboard');
+            return redirect()->route('dashboard');
         } catch (AccountLockedException $e) {
             return back()->with('error', $e->getMessage());
         } catch (InvalidCredentialsException) {

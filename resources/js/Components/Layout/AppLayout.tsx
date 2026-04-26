@@ -1,6 +1,6 @@
-import { Link, usePage } from '@inertiajs/react';
+import { Link, usePage, useForm } from '@inertiajs/react';
 import type { PageProps } from '@/Types/user';
-import type { ReactNode } from 'react';
+import type { ReactNode, FormEvent } from 'react';
 
 interface AppLayoutProps {
     children: ReactNode;
@@ -8,6 +8,14 @@ interface AppLayoutProps {
 
 export default function AppLayout({ children }: AppLayoutProps) {
     const { auth, subscription, flash } = usePage<PageProps>().props;
+    const resendForm = useForm({});
+
+    const showVerificationBanner = auth.user && !auth.user.emailVerifiedAt;
+
+    function handleResend(e: FormEvent) {
+        e.preventDefault();
+        resendForm.post('/email/resend-verification', { preserveScroll: true });
+    }
 
     return (
         <div className="min-h-screen bg-gray-50">
@@ -99,6 +107,30 @@ export default function AppLayout({ children }: AppLayoutProps) {
                     </div>
                 </div>
             </nav>
+
+            {showVerificationBanner && (
+                <div className="border-b border-amber-200 bg-amber-50 px-4 py-3" role="alert">
+                    <div className="mx-auto flex max-w-7xl items-center justify-between sm:px-6 lg:px-8">
+                        <div className="flex items-center gap-2 text-sm text-amber-800">
+                            <svg className="h-5 w-5 flex-shrink-0 text-amber-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                <path fillRule="evenodd" d="M8.485 2.495c.673-1.167 2.357-1.167 3.03 0l6.28 10.875c.673 1.167-.17 2.625-1.516 2.625H3.72c-1.347 0-2.189-1.458-1.515-2.625L8.485 2.495zM10 6a.75.75 0 01.75.75v3.5a.75.75 0 01-1.5 0v-3.5A.75.75 0 0110 6zm0 9a1 1 0 100-2 1 1 0 000 2z" clipRule="evenodd" />
+                            </svg>
+                            <span>
+                                Your email address is not verified. Please check your inbox for the verification link.
+                            </span>
+                        </div>
+                        <form onSubmit={handleResend}>
+                            <button
+                                type="submit"
+                                disabled={resendForm.processing}
+                                className="ml-4 whitespace-nowrap rounded-lg bg-amber-600 px-3 py-1.5 text-xs font-semibold text-white shadow-sm hover:bg-amber-500 focus:ring-2 focus:ring-amber-500 focus:ring-offset-2 focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed"
+                            >
+                                {resendForm.processing ? 'Sending…' : 'Resend email'}
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            )}
 
             <main className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
                 {flash.success && (

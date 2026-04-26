@@ -3,6 +3,7 @@ export interface User {
     name: string;
     email: string;
     role: 'learner' | 'instructor' | 'admin';
+    emailVerifiedAt: string | null;
 }
 
 export interface PageProps {
