@@ -113,11 +113,11 @@
 
 ## Phase 3: Landing Page and Branding Integration
 
-- [ ] 16. Integrate dynamic landing page
-  - [ ] 16.1 Create or update `LandingController` to assemble landing page data: call `BrandingService::getLandingPageContent()` and pass to Inertia render
-  - [ ] 16.2 Update `Landing.tsx` to accept and render dynamic props: branding, sections, creatorProfile, featuredCourses
-  - [ ] 16.3 Create `LandingSection` React component that renders different section types (hero, about, featured_courses, testimonials, cta) based on section_type
-  - [ ] 16.4 Create `FeaturedCourses` React component that displays a grid of featured course cards with creator name
+- [x] 16. Integrate dynamic landing page
+  - [x] 16.1 Create or update `LandingController` to assemble landing page data: call `BrandingService::getLandingPageContent()` and pass to Inertia render
+  - [x] 16.2 Update `Landing.tsx` to accept and render dynamic props: branding, sections, creatorProfile, featuredCourses
+  - [x] 16.3 Create `LandingSection` React component that renders different section types (hero, about, featured_courses, testimonials, cta) based on section_type
+  - [x] 16.4 Create `FeaturedCourses` React component that displays a grid of featured course cards with creator name
 
 - [ ] 17. Add branding context to Inertia shared data
   - [ ] 17.1 Update `HandleInertiaRequests` middleware to share branding data (site_name, logo_url, primary_color, secondary_color) on every page load via `BrandingServiceInterface`

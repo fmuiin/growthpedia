@@ -1,72 +1,22 @@
 import LandingLayout from '@/Components/Layout/LandingLayout';
+import LandingSection from '@/Components/Landing/LandingSection';
+import FeaturedCourses from '@/Components/Landing/FeaturedCourses';
 import { Link } from '@inertiajs/react';
-import type { CatalogCourseType } from '@/Types/catalog';
 import type { MembershipPlanType } from '@/Types/subscription';
+import type {
+    PlatformBrandingType,
+    LandingPageSectionType,
+    CreatorProfileType,
+    FeaturedCourseType,
+} from '@/Types/branding';
 
 interface LandingProps {
-    featuredCourses: CatalogCourseType[];
+    branding: PlatformBrandingType;
+    sections: LandingPageSectionType[];
+    creatorProfile: CreatorProfileType | null;
+    featuredCourses: FeaturedCourseType[];
     plans: MembershipPlanType[];
 }
-
-const COURSE_ACCENTS = [
-    'from-violet-500 to-purple-600',
-    'from-blue-500 to-indigo-600',
-    'from-emerald-500 to-teal-600',
-    'from-orange-500 to-amber-600',
-    'from-pink-500 to-rose-600',
-    'from-cyan-500 to-blue-600',
-] as const;
-
-const DEMO_COURSES: CatalogCourseType[] = [
-    {
-        id: 0,
-        title: 'UI/UX Design Fundamentals',
-        descriptionSummary: 'Layout, typography, and usability patterns for interfaces people love.',
-        creatorName: 'GrowthPedia Faculty',
-        category: 'Design',
-        publishedAt: '',
-    },
-    {
-        id: 0,
-        title: 'Digital Marketing Strategy',
-        descriptionSummary: 'Campaign planning, analytics, and growth loops for modern teams.',
-        creatorName: 'GrowthPedia Faculty',
-        category: 'Marketing',
-        publishedAt: '',
-    },
-    {
-        id: 0,
-        title: 'Data Literacy Essentials',
-        descriptionSummary: 'Read charts, ask better questions, and make decisions with confidence.',
-        creatorName: 'GrowthPedia Faculty',
-        category: 'Data',
-        publishedAt: '',
-    },
-    {
-        id: 0,
-        title: 'Product Thinking Workshop',
-        descriptionSummary: 'Discovery, roadmaps, and outcomes for product builders.',
-        creatorName: 'GrowthPedia Faculty',
-        category: 'Product',
-        publishedAt: '',
-    },
-    {
-        id: 0,
-        title: 'Leadership Communication',
-        descriptionSummary: 'Stories, feedback, and clarity for managers and leads.',
-        creatorName: 'GrowthPedia Faculty',
-        category: 'Leadership',
-        publishedAt: '',
-    },
-    {
-        id: 0,
-        title: 'Automation with No-Code',
-        descriptionSummary: 'Ship internal tools faster without a dedicated engineering team.',
-        creatorName: 'GrowthPedia Faculty',
-        category: 'Operations',
-        publishedAt: '',
-    },
-];
 
 const FEATURES = [
     {
@@ -156,6 +106,66 @@ const STATIC_PRICING_TIERS: {
     },
 ];
 
+const COURSE_ACCENTS = [
+    'from-violet-500 to-purple-600',
+    'from-blue-500 to-indigo-600',
+    'from-emerald-500 to-teal-600',
+    'from-orange-500 to-amber-600',
+    'from-pink-500 to-rose-600',
+    'from-cyan-500 to-blue-600',
+] as const;
+
+const DEMO_COURSES: FeaturedCourseType[] = [
+    {
+        id: 0,
+        title: 'UI/UX Design Fundamentals',
+        description: 'Layout, typography, and usability patterns for interfaces people love.',
+        category: 'Design',
+        status: 'published',
+        publishedAt: null,
+    },
+    {
+        id: 0,
+        title: 'Digital Marketing Strategy',
+        description: 'Campaign planning, analytics, and growth loops for modern teams.',
+        category: 'Marketing',
+        status: 'published',
+        publishedAt: null,
+    },
+    {
+        id: 0,
+        title: 'Data Literacy Essentials',
+        description: 'Read charts, ask better questions, and make decisions with confidence.',
+        category: 'Data',
+        status: 'published',
+        publishedAt: null,
+    },
+    {
+        id: 0,
+        title: 'Product Thinking Workshop',
+        description: 'Discovery, roadmaps, and outcomes for product builders.',
+        category: 'Product',
+        status: 'published',
+        publishedAt: null,
+    },
+    {
+        id: 0,
+        title: 'Leadership Communication',
+        description: 'Stories, feedback, and clarity for managers and leads.',
+        category: 'Leadership',
+        status: 'published',
+        publishedAt: null,
+    },
+    {
+        id: 0,
+        title: 'Automation with No-Code',
+        description: 'Ship internal tools faster without a dedicated engineering team.',
+        category: 'Operations',
+        status: 'published',
+        publishedAt: null,
+    },
+];
+
 function formatPlanPrice(plan: MembershipPlanType): string {
     return `Rp ${Number(plan.price).toLocaleString('id-ID')}`;
 }
@@ -173,7 +183,7 @@ function planFeatures(plan: MembershipPlanType): string[] {
     return ['Active membership', 'Course access per plan', 'Progress tracking', 'Certificates when eligible'];
 }
 
-function buildDisplayCourses(server: CatalogCourseType[]): CatalogCourseType[] {
+function buildDisplayCourses(server: FeaturedCourseType[]): FeaturedCourseType[] {
     const merged = [...server];
     let i = 0;
     while (merged.length < 6 && i < DEMO_COURSES.length) {
@@ -186,8 +196,8 @@ function buildDisplayCourses(server: CatalogCourseType[]): CatalogCourseType[] {
     return merged.slice(0, 6);
 }
 
-export default function Landing({ featuredCourses, plans }: LandingProps) {
-    const displayCourses = buildDisplayCourses(featuredCourses);
+export default function Landing({ branding, sections, creatorProfile, featuredCourses, plans }: LandingProps) {
+    const hasDynamicSections = sections.length > 0;
 
     const pricingFromDb =
         plans.length > 0
@@ -198,8 +208,31 @@ export default function Landing({ featuredCourses, plans }: LandingProps) {
               }))
             : null;
 
+    if (hasDynamicSections) {
+        return (
+            <LandingLayout>
+                {sections.map((section) => (
+                    <LandingSection
+                        key={section.id}
+                        section={section}
+                        branding={branding}
+                        creatorProfile={creatorProfile}
+                        featuredCourses={featuredCourses}
+                    />
+                ))}
+
+                {/* Pricing section is always rendered statically — not managed by dynamic sections */}
+                <PricingSection pricingFromDb={pricingFromDb} />
+            </LandingLayout>
+        );
+    }
+
+    // Fallback: static content when no dynamic sections exist
+    const displayCourses = buildDisplayCourses(featuredCourses);
+
     return (
         <LandingLayout>
+            {/* Static Hero */}
             <section className="relative overflow-hidden bg-white">
                 <div
                     className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_-20%,rgba(124,58,237,0.12),transparent),radial-gradient(ellipse_60%_40%_at_100%_0%,rgba(59,130,246,0.08),transparent)]"
@@ -217,8 +250,8 @@ export default function Landing({ featuredCourses, plans }: LandingProps) {
                         .
                     </h1>
                     <p className="mx-auto mt-6 max-w-2xl text-base text-gray-600 sm:text-lg">
-                        GrowthPedia brings courses, memberships, progress, and certificates into one calm experience —
-                        for learners who want depth and teams who want clarity.
+                        {branding.tagline ??
+                            'GrowthPedia brings courses, memberships, progress, and certificates into one calm experience — for learners who want depth and teams who want clarity.'}
                     </p>
                     <div className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row sm:gap-4">
                         <Link
@@ -252,6 +285,7 @@ export default function Landing({ featuredCourses, plans }: LandingProps) {
                 </div>
             </section>
 
+            {/* Static Featured Courses */}
             <section className="border-t border-gray-100 bg-gray-50/50 py-20" id="courses">
                 <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
                     <p className="text-center text-xs font-semibold uppercase tracking-wider text-violet-600">Our courses</p>
@@ -286,7 +320,7 @@ export default function Landing({ featuredCourses, plans }: LandingProps) {
                                             {course.title}
                                         </h3>
                                         <p className="mt-2 line-clamp-2 flex-1 text-sm text-gray-600">
-                                            {course.descriptionSummary}
+                                            {course.description}
                                         </p>
                                         <div className="mt-4 flex items-center justify-between border-t border-gray-100 pt-4 text-xs text-gray-500">
                                             <span>Self-paced</span>
@@ -308,6 +342,7 @@ export default function Landing({ featuredCourses, plans }: LandingProps) {
                 </div>
             </section>
 
+            {/* Static Features */}
             <section className="py-20" id="features">
                 <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
                     <p className="text-center text-xs font-semibold uppercase tracking-wider text-violet-600">Why choose us</p>
@@ -347,6 +382,7 @@ export default function Landing({ featuredCourses, plans }: LandingProps) {
                 </div>
             </section>
 
+            {/* Static Testimonials */}
             <section className="border-t border-gray-100 bg-gray-50/50 py-20" id="testimonials">
                 <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
                     <p className="text-center text-xs font-semibold uppercase tracking-wider text-violet-600">Testimonials</p>
@@ -384,125 +420,15 @@ export default function Landing({ featuredCourses, plans }: LandingProps) {
                 </div>
             </section>
 
-            <section className="py-20" id="pricing">
-                <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-                    <p className="text-center text-xs font-semibold uppercase tracking-wider text-violet-600">Pricing</p>
-                    <h2 className="mt-2 text-center text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-                        Simple, transparent pricing
-                    </h2>
-                    <p className="mx-auto mt-3 max-w-2xl text-center text-gray-600">
-                        Pick a membership that fits. Change or cancel when your needs evolve.
-                    </p>
-                    <div className="mt-12 grid gap-6 lg:grid-cols-3">
-                        {pricingFromDb
-                            ? pricingFromDb.map(({ plan, highlight }) => (
-                                  <div
-                                      key={plan.id}
-                                      className={`relative flex flex-col rounded-2xl border p-8 shadow-sm ${
-                                          highlight
-                                              ? 'border-gray-900 bg-gray-900 text-white ring-2 ring-violet-500'
-                                              : 'border-gray-200 bg-white'
-                                      }`}
-                                  >
-                                      {highlight && (
-                                          <span className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-violet-600 px-3 py-0.5 text-xs font-semibold text-white">
-                                              Most popular
-                                          </span>
-                                      )}
-                                      <h3 className={`text-lg font-semibold ${highlight ? 'text-white' : 'text-gray-900'}`}>
-                                          {plan.name}
-                                      </h3>
-                                      <p className={`mt-2 text-sm ${highlight ? 'text-gray-300' : 'text-gray-600'}`}>
-                                          {plan.description ?? 'Membership access on GrowthPedia.'}
-                                      </p>
-                                      <div className="mt-6">
-                                          <span className={`text-4xl font-bold ${highlight ? 'text-white' : 'text-gray-900'}`}>
-                                              {formatPlanPrice(plan)}
-                                          </span>
-                                          <span className={`text-sm ${highlight ? 'text-gray-400' : 'text-gray-500'}`}>
-                                              /{plan.billingFrequency === 'monthly' ? 'month' : 'year'}
-                                          </span>
-                                      </div>
-                                      <ul className="mt-8 flex-1 space-y-3 text-sm">
-                                          {planFeatures(plan).map((line) => (
-                                              <li key={line} className="flex gap-2">
-                                                  <span className={highlight ? 'text-violet-300' : 'text-violet-600'}>✓</span>
-                                                  <span className={highlight ? 'text-gray-200' : 'text-gray-600'}>{line}</span>
-                                              </li>
-                                          ))}
-                                      </ul>
-                                      <Link
-                                          href={`/checkout/${plan.id}`}
-                                          className={`mt-8 block w-full rounded-full py-3 text-center text-sm font-semibold transition ${
-                                              highlight
-                                                  ? 'bg-violet-600 text-white hover:bg-violet-500'
-                                                  : 'bg-gray-900 text-white hover:bg-gray-800'
-                                          }`}
-                                      >
-                                          Get started
-                                      </Link>
-                                  </div>
-                              ))
-                            : STATIC_PRICING_TIERS.map((tier) => (
-                                  <div
-                                      key={tier.name}
-                                      className={`relative flex flex-col rounded-2xl border p-8 shadow-sm ${
-                                          tier.highlight
-                                              ? 'border-gray-900 bg-gray-900 text-white ring-2 ring-violet-500'
-                                              : 'border-gray-200 bg-white'
-                                      }`}
-                                  >
-                                      {tier.highlight && (
-                                          <span className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-violet-600 px-3 py-0.5 text-xs font-semibold text-white">
-                                              Most popular
-                                          </span>
-                                      )}
-                                      <h3 className={`text-lg font-semibold ${tier.highlight ? 'text-white' : 'text-gray-900'}`}>
-                                          {tier.name}
-                                      </h3>
-                                      <p className={`mt-2 text-sm ${tier.highlight ? 'text-gray-300' : 'text-gray-600'}`}>
-                                          {tier.blurb}
-                                      </p>
-                                      <div className="mt-6">
-                                          <span className={`text-4xl font-bold ${tier.highlight ? 'text-white' : 'text-gray-900'}`}>
-                                              {tier.price}
-                                          </span>
-                                          <span className={`text-sm ${tier.highlight ? 'text-gray-400' : 'text-gray-500'}`}>
-                                              {tier.period}
-                                          </span>
-                                      </div>
-                                      <ul className="mt-8 flex-1 space-y-3 text-sm">
-                                          {tier.features.map((line) => (
-                                              <li key={line} className="flex gap-2">
-                                                  <span className={tier.highlight ? 'text-violet-300' : 'text-violet-600'}>✓</span>
-                                                  <span className={tier.highlight ? 'text-gray-200' : 'text-gray-600'}>{line}</span>
-                                              </li>
-                                          ))}
-                                      </ul>
-                                      <Link
-                                          href="/plans"
-                                          className={`mt-8 block w-full rounded-full py-3 text-center text-sm font-semibold transition ${
-                                              tier.highlight
-                                                  ? 'bg-violet-600 text-white hover:bg-violet-500'
-                                                  : 'bg-gray-900 text-white hover:bg-gray-800'
-                                          }`}
-                                      >
-                                          Get started
-                                      </Link>
-                                  </div>
-                              ))}
-                    </div>
-                    <p className="mt-8 text-center text-sm text-gray-500">
-                        All plans include access to our community and support during business hours.
-                    </p>
-                </div>
-            </section>
+            {/* Pricing */}
+            <PricingSection pricingFromDb={pricingFromDb} />
 
+            {/* Static CTA */}
             <section className="bg-gray-950 py-20 text-white">
                 <div className="mx-auto max-w-3xl px-4 text-center sm:px-6 lg:px-8">
                     <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">Ready to start your learning journey?</h2>
                     <p className="mt-4 text-gray-400">
-                        Join learners and teams who use GrowthPedia to ship skills — not just watch videos.
+                        Join learners and teams who use {branding.siteName} to ship skills — not just watch videos.
                     </p>
                     <div className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row sm:gap-4">
                         <Link
@@ -521,5 +447,128 @@ export default function Landing({ featuredCourses, plans }: LandingProps) {
                 </div>
             </section>
         </LandingLayout>
+    );
+}
+
+/* Shared pricing section used by both dynamic and static paths */
+function PricingSection({
+    pricingFromDb,
+}: {
+    pricingFromDb: { kind: 'db'; plan: MembershipPlanType; highlight: boolean }[] | null;
+}) {
+    return (
+        <section className="py-20" id="pricing">
+            <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+                <p className="text-center text-xs font-semibold uppercase tracking-wider text-violet-600">Pricing</p>
+                <h2 className="mt-2 text-center text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+                    Simple, transparent pricing
+                </h2>
+                <p className="mx-auto mt-3 max-w-2xl text-center text-gray-600">
+                    Pick a membership that fits. Change or cancel when your needs evolve.
+                </p>
+                <div className="mt-12 grid gap-6 lg:grid-cols-3">
+                    {pricingFromDb
+                        ? pricingFromDb.map(({ plan, highlight }) => (
+                              <div
+                                  key={plan.id}
+                                  className={`relative flex flex-col rounded-2xl border p-8 shadow-sm ${
+                                      highlight
+                                          ? 'border-gray-900 bg-gray-900 text-white ring-2 ring-violet-500'
+                                          : 'border-gray-200 bg-white'
+                                  }`}
+                              >
+                                  {highlight && (
+                                      <span className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-violet-600 px-3 py-0.5 text-xs font-semibold text-white">
+                                          Most popular
+                                      </span>
+                                  )}
+                                  <h3 className={`text-lg font-semibold ${highlight ? 'text-white' : 'text-gray-900'}`}>
+                                      {plan.name}
+                                  </h3>
+                                  <p className={`mt-2 text-sm ${highlight ? 'text-gray-300' : 'text-gray-600'}`}>
+                                      {plan.description ?? 'Membership access on GrowthPedia.'}
+                                  </p>
+                                  <div className="mt-6">
+                                      <span className={`text-4xl font-bold ${highlight ? 'text-white' : 'text-gray-900'}`}>
+                                          {formatPlanPrice(plan)}
+                                      </span>
+                                      <span className={`text-sm ${highlight ? 'text-gray-400' : 'text-gray-500'}`}>
+                                          /{plan.billingFrequency === 'monthly' ? 'month' : 'year'}
+                                      </span>
+                                  </div>
+                                  <ul className="mt-8 flex-1 space-y-3 text-sm">
+                                      {planFeatures(plan).map((line) => (
+                                          <li key={line} className="flex gap-2">
+                                              <span className={highlight ? 'text-violet-300' : 'text-violet-600'}>✓</span>
+                                              <span className={highlight ? 'text-gray-200' : 'text-gray-600'}>{line}</span>
+                                          </li>
+                                      ))}
+                                  </ul>
+                                  <Link
+                                      href={`/checkout/${plan.id}`}
+                                      className={`mt-8 block w-full rounded-full py-3 text-center text-sm font-semibold transition ${
+                                          highlight
+                                              ? 'bg-violet-600 text-white hover:bg-violet-500'
+                                              : 'bg-gray-900 text-white hover:bg-gray-800'
+                                      }`}
+                                  >
+                                      Get started
+                                  </Link>
+                              </div>
+                          ))
+                        : STATIC_PRICING_TIERS.map((tier) => (
+                              <div
+                                  key={tier.name}
+                                  className={`relative flex flex-col rounded-2xl border p-8 shadow-sm ${
+                                      tier.highlight
+                                          ? 'border-gray-900 bg-gray-900 text-white ring-2 ring-violet-500'
+                                          : 'border-gray-200 bg-white'
+                                  }`}
+                              >
+                                  {tier.highlight && (
+                                      <span className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-violet-600 px-3 py-0.5 text-xs font-semibold text-white">
+                                          Most popular
+                                      </span>
+                                  )}
+                                  <h3 className={`text-lg font-semibold ${tier.highlight ? 'text-white' : 'text-gray-900'}`}>
+                                      {tier.name}
+                                  </h3>
+                                  <p className={`mt-2 text-sm ${tier.highlight ? 'text-gray-300' : 'text-gray-600'}`}>
+                                      {tier.blurb}
+                                  </p>
+                                  <div className="mt-6">
+                                      <span className={`text-4xl font-bold ${tier.highlight ? 'text-white' : 'text-gray-900'}`}>
+                                          {tier.price}
+                                      </span>
+                                      <span className={`text-sm ${tier.highlight ? 'text-gray-400' : 'text-gray-500'}`}>
+                                          {tier.period}
+                                      </span>
+                                  </div>
+                                  <ul className="mt-8 flex-1 space-y-3 text-sm">
+                                      {tier.features.map((line) => (
+                                          <li key={line} className="flex gap-2">
+                                              <span className={tier.highlight ? 'text-violet-300' : 'text-violet-600'}>✓</span>
+                                              <span className={tier.highlight ? 'text-gray-200' : 'text-gray-600'}>{line}</span>
+                                          </li>
+                                      ))}
+                                  </ul>
+                                  <Link
+                                      href="/plans"
+                                      className={`mt-8 block w-full rounded-full py-3 text-center text-sm font-semibold transition ${
+                                          tier.highlight
+                                              ? 'bg-violet-600 text-white hover:bg-violet-500'
+                                              : 'bg-gray-900 text-white hover:bg-gray-800'
+                                      }`}
+                                  >
+                                      Get started
+                                  </Link>
+                              </div>
+                          ))}
+                </div>
+                <p className="mt-8 text-center text-sm text-gray-500">
+                    All plans include access to our community and support during business hours.
+                </p>
+            </div>
+        </section>
     );
 }
