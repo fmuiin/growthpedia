@@ -27,15 +27,15 @@
   - [x] 4.6 Create `PlatformBrandingDTO` (readonly) with fields: id, siteName, tagline, logoUrl, faviconUrl, primaryColor, secondaryColor, footerText
   - [x] 4.7 Create `UpdatePlatformBrandingDTO` (readonly) with all nullable fields: siteName, tagline, logoUrl, faviconUrl, primaryColor, secondaryColor, footerText
 
-- [ ] 5. Create Branding service contract and implementation
-  - [ ] 5.1 Create `BrandingServiceInterface` in Contracts with methods: getCreatorProfile, updateCreatorProfile, getLandingPageContent, updateLandingPageContent, getPlatformBranding, updatePlatformBranding, getCreatorName
-  - [ ] 5.2 Implement `BrandingService::getCreatorProfile()` — auto-initializes from first admin user if no profile exists, caches result
-  - [ ] 5.3 Implement `BrandingService::updateCreatorProfile()` — validates featured_course_ids are published, updates profile, invalidates cache
-  - [ ] 5.4 Implement `BrandingService::getLandingPageContent()` — assembles LandingPageDTO from sections (visible, sorted), branding, creator profile, and featured courses; caches result with 300s TTL
-  - [ ] 5.5 Implement `BrandingService::updateLandingPageContent()` — upserts landing page sections, invalidates cache
-  - [ ] 5.6 Implement `BrandingService::getPlatformBranding()` — returns singleton branding record or defaults, caches result
-  - [ ] 5.7 Implement `BrandingService::updatePlatformBranding()` — creates or updates singleton record, invalidates cache
-  - [ ] 5.8 Implement `BrandingService::getCreatorName()` — returns display_name from creator profile (used by Catalog and Certificate modules)
+- [x] 5. Create Branding service contract and implementation
+  - [x] 5.1 Create `BrandingServiceInterface` in Contracts with methods: getCreatorProfile, updateCreatorProfile, getLandingPageContent, updateLandingPageContent, getPlatformBranding, updatePlatformBranding, getCreatorName
+  - [x] 5.2 Implement `BrandingService::getCreatorProfile()` — auto-initializes from first admin user if no profile exists, caches result
+  - [x] 5.3 Implement `BrandingService::updateCreatorProfile()` — validates featured_course_ids are published, updates profile, invalidates cache
+  - [x] 5.4 Implement `BrandingService::getLandingPageContent()` — assembles LandingPageDTO from sections (visible, sorted), branding, creator profile, and featured courses; caches result with 300s TTL
+  - [x] 5.5 Implement `BrandingService::updateLandingPageContent()` — upserts landing page sections, invalidates cache
+  - [x] 5.6 Implement `BrandingService::getPlatformBranding()` — returns singleton branding record or defaults, caches result
+  - [x] 5.7 Implement `BrandingService::updatePlatformBranding()` — creates or updates singleton record, invalidates cache
+  - [x] 5.8 Implement `BrandingService::getCreatorName()` — returns display_name from creator profile (used by Catalog and Certificate modules)
 
 - [ ] 6. Create Branding module form requests
   - [ ] 6.1 Create `UpdateCreatorProfileRequest` with validation rules: display_name (string, max:255), bio (nullable, string, max:5000), avatar_url (nullable, url, max:500), expertise (nullable, string, max:255), social_links (nullable, array with known keys), featured_course_ids (nullable, array of existing published course IDs)
