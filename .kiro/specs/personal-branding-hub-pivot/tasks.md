@@ -42,11 +42,11 @@
   - [x] 6.2 Create `UpdateLandingPageSectionRequest` with validation rules: section_type (required, in:hero,about,featured_courses,testimonials,cta), title (nullable, string, max:255), subtitle (nullable, string), content (nullable, string), image_url (nullable, url, max:500), cta_text (nullable, string, max:100), cta_url (nullable, url, max:500), sort_order (integer), is_visible (boolean)
   - [x] 6.3 Create `UpdatePlatformBrandingRequest` with validation rules: site_name (string, max:255), tagline (nullable, string, max:500), logo_url (nullable, url, max:500), favicon_url (nullable, url, max:500), primary_color (regex for hex code), secondary_color (regex for hex code), footer_text (nullable, string)
 
-- [ ] 7. Create Branding module controllers and routes
-  - [ ] 7.1 Create `BrandingController` with methods: showProfile, updateProfile, showLandingEditor, updateLandingSection, createLandingSection, deleteLandingSection, showPlatformBranding, updatePlatformBranding
-  - [ ] 7.2 Create `CreatorProfileController` with method: show (public page at GET /creator)
-  - [ ] 7.3 Create admin routes in `Routes/web.php`: GET/PUT `/admin/branding/profile`, GET/POST/PUT/DELETE `/admin/branding/landing-sections`, GET/PUT `/admin/branding/platform` — all behind auth + admin middleware
-  - [ ] 7.4 Create public route: GET `/creator` — accessible without authentication
+- [x] 7. Create Branding module controllers and routes
+  - [x] 7.1 Create `BrandingController` with methods: showProfile, updateProfile, showLandingEditor, updateLandingSection, createLandingSection, deleteLandingSection, showPlatformBranding, updatePlatformBranding
+  - [x] 7.2 Create `CreatorProfileController` with method: show (public page at GET /creator)
+  - [x] 7.3 Create admin routes in `Routes/web.php`: GET/PUT `/admin/branding/profile`, GET/POST/PUT/DELETE `/admin/branding/landing-sections`, GET/PUT `/admin/branding/platform` — all behind auth + admin middleware
+  - [x] 7.4 Create public route: GET `/creator` — accessible without authentication
 
 - [ ] 8. Create Branding module frontend pages
   - [ ] 8.1 Create TypeScript types for Branding module: `CreatorProfile`, `LandingPageSection`, `PlatformBranding`, `LandingPageData` in `resources/js/Types`
