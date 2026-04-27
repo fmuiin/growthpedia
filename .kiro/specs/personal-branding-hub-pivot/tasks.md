@@ -94,14 +94,14 @@
   - [x] 13.5 Update `CatalogCourseDTO`: rename `instructorName` to `creatorName`
   - [x] 13.6 Update `CatalogCourseDetailDTO`: rename `instructorName` to `creatorName`, rename `instructorBio` to `creatorBio`
 
-- [ ] 14. Update affected frontend components and TypeScript types
-  - [ ] 14.1 Update TypeScript types: replace `instructorId`/`instructorName`/`instructorBio` with `createdBy`/`creatorName`/`creatorBio` in Course and Catalog types
-  - [ ] 14.2 Update `CourseList.tsx`: remove instructor column/references, show all courses for admin
-  - [ ] 14.3 Update `CourseCreate.tsx`: remove any instructor-related fields
-  - [ ] 14.4 Update `CourseEdit.tsx`: remove instructor name display, update DTO references
-  - [ ] 14.5 Update `CatalogIndex.tsx`: replace `instructorName` with `creatorName` in course cards
-  - [ ] 14.6 Update `CourseDetail.tsx` (Catalog): replace `instructorName`/`instructorBio` with `creatorName`/`creatorBio`
-  - [ ] 14.7 Update `Admin/UserManagement.tsx`: remove 'instructor' from role assignment options
+- [x] 14. Update affected frontend components and TypeScript types
+  - [x] 14.1 Update TypeScript types: replace `instructorId`/`instructorName`/`instructorBio` with `createdBy`/`creatorName`/`creatorBio` in Course and Catalog types
+  - [x] 14.2 Update `CourseList.tsx`: remove instructor column/references, show all courses for admin
+  - [x] 14.3 Update `CourseCreate.tsx`: remove any instructor-related fields
+  - [x] 14.4 Update `CourseEdit.tsx`: remove instructor name display, update DTO references
+  - [x] 14.5 Update `CatalogIndex.tsx`: replace `instructorName` with `creatorName` in course cards
+  - [x] 14.6 Update `CourseDetail.tsx` (Catalog): replace `instructorName`/`instructorBio` with `creatorName`/`creatorBio`
+  - [x] 14.7 Update `Admin/UserManagement.tsx`: remove 'instructor' from role assignment options
 
 - [ ] 15. Update existing tests for Phase 2 changes
   - [ ] 15.1 Update Course module unit tests: adjust for removed instructorId in CreateCourseDTO, simplified policy checks, admin-only course listing

@@ -2,7 +2,7 @@ export interface AdminUserType {
     id: number;
     name: string;
     email: string;
-    role: 'learner' | 'instructor' | 'admin';
+    role: 'learner' | 'admin';
     subscriptionStatus: string | null;
     registrationDate: string;
     isSuspended: boolean;

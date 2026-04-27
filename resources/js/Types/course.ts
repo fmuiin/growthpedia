@@ -18,7 +18,7 @@ export interface ModuleType {
 
 export interface CourseType {
     id: number;
-    instructorId: number;
+    createdBy: number;
     title: string;
     description: string;
     category: string;
@@ -28,6 +28,5 @@ export interface CourseType {
 }
 
 export interface CourseDetailType extends Omit<CourseType, 'createdAt'> {
-    instructorName: string;
     modules: ModuleType[];
 }

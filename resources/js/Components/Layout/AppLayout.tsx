@@ -49,12 +49,12 @@ export default function AppLayout({ children }: AppLayoutProps) {
                                         </Link>
                                     </>
                                 )}
-                                {(auth.user?.role === 'instructor' || auth.user?.role === 'admin') && (
+                                {auth.user?.role === 'admin' && (
                                     <Link
                                         href="/courses"
                                         className="text-sm font-medium text-gray-600 hover:text-indigo-600"
                                     >
-                                        My Courses
+                                        Courses
                                     </Link>
                                 )}
                                 {auth.user?.role === 'admin' && (

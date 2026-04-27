@@ -167,7 +167,7 @@ export default function CatalogIndex({ courses, filters, categories, searchQuery
                                     {course.descriptionSummary}
                                 </p>
                                 <div className="flex items-center justify-between text-xs text-gray-500">
-                                    <span>By {course.instructorName}</span>
+                                    <span>By {course.creatorName}</span>
                                     <time dateTime={course.publishedAt}>
                                         {new Date(course.publishedAt).toLocaleDateString()}
                                     </time>

@@ -33,9 +33,6 @@ export default function LessonView({ lesson, comments, canComment }: LessonViewP
                     <div className="mt-6">
                         <h1 className="text-xl font-bold text-gray-900">{lesson.title}</h1>
                         <div className="mt-2 flex items-center gap-3">
-                            <span className="text-sm text-gray-500">
-                                Instructor: {course.instructorName}
-                            </span>
                             <span className="rounded bg-indigo-100 px-2 py-0.5 text-xs font-medium text-indigo-700 capitalize">
                                 {lesson.contentType}
                             </span>

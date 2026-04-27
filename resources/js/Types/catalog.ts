@@ -2,7 +2,7 @@ export interface CatalogCourseType {
     id: number;
     title: string;
     descriptionSummary: string;
-    instructorName: string;
+    creatorName: string;
     category: string;
     publishedAt: string;
 }
@@ -34,8 +34,8 @@ export interface CatalogCourseDetailType {
     title: string;
     description: string;
     category: string;
-    instructorName: string;
-    instructorBio: string | null;
+    creatorName: string;
+    creatorBio: string | null;
     publishedAt: string;
     modules: CatalogModuleOutlineType[];
     enrollmentCount: number;

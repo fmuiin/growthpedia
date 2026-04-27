@@ -18,7 +18,7 @@ export default function CourseList({ courses }: CourseListProps) {
     return (
         <AppLayout>
             <div className="mb-6 flex items-center justify-between">
-                <h1 className="text-2xl font-bold text-gray-900">My Courses</h1>
+                <h1 className="text-2xl font-bold text-gray-900">Courses</h1>
                 <Link
                     href="/courses/create"
                     className="rounded-xl bg-indigo-600 px-4 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:outline-none"
@@ -29,7 +29,7 @@ export default function CourseList({ courses }: CourseListProps) {
 
             {courses.length === 0 ? (
                 <div className="rounded-xl bg-white p-12 text-center shadow-sm ring-1 ring-gray-200">
-                    <p className="text-gray-500">You haven&apos;t created any courses yet.</p>
+                    <p className="text-gray-500">No courses have been created yet.</p>
                     <Link
                         href="/courses/create"
                         className="mt-3 inline-block text-sm font-medium text-indigo-600 hover:text-indigo-500"

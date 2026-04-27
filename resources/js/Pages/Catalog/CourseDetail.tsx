@@ -31,11 +31,11 @@ export default function CourseDetail({ course }: CourseDetailProps) {
 
                     <div className="flex flex-wrap items-center gap-6 text-sm text-gray-500">
                         <div className="flex items-center gap-1.5">
-                            <span className="font-medium text-gray-700">Instructor:</span>
-                            <span>{course.instructorName}</span>
+                            <span className="font-medium text-gray-700">Creator:</span>
+                            <span>{course.creatorName}</span>
                         </div>
-                        {course.instructorBio && (
-                            <div className="text-xs text-gray-400">— {course.instructorBio}</div>
+                        {course.creatorBio && (
+                            <div className="text-xs text-gray-400">— {course.creatorBio}</div>
                         )}
                         <div className="flex items-center gap-1.5">
                             <span className="font-medium text-gray-700">Enrolled:</span>

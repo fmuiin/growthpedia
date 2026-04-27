@@ -203,7 +203,6 @@ function UserRow({ user }: { user: AdminUserType }) {
                     className="rounded-lg border border-gray-300 px-2 py-1 text-sm focus:border-indigo-500 focus:ring-indigo-500 disabled:opacity-50"
                 >
                     <option value="learner">Learner</option>
-                    <option value="instructor">Instructor</option>
                     <option value="admin">Admin</option>
                 </select>
             </td>
