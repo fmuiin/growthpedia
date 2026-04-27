@@ -18,14 +18,14 @@
   - [x] 3.2 Create `LandingPageSection` model with fillable fields and casts (sort_order → integer, is_visible → boolean, metadata → array)
   - [x] 3.3 Create `PlatformBranding` model with fillable fields and casts (metadata → array)
 
-- [ ] 4. Create Branding module DTOs
-  - [ ] 4.1 Create `CreatorProfileDTO` (readonly) with fields: id, userId, displayName, bio, avatarUrl, expertise, socialLinks, featuredCourseIds
-  - [ ] 4.2 Create `UpdateCreatorProfileDTO` (readonly) with all nullable fields: displayName, bio, avatarUrl, expertise, socialLinks, featuredCourseIds
-  - [ ] 4.3 Create `LandingPageSectionDTO` (readonly) with fields: id, sectionType, title, subtitle, content, imageUrl, ctaText, ctaUrl, sortOrder, isVisible, metadata
-  - [ ] 4.4 Create `LandingPageDTO` (readonly) with fields: branding (PlatformBrandingDTO), sections (array of LandingPageSectionDTO), creatorProfile (CreatorProfileDTO|null), featuredCourses (array)
-  - [ ] 4.5 Create `UpdateLandingPageDTO` (readonly) with fields: sections (array of section data to upsert)
-  - [ ] 4.6 Create `PlatformBrandingDTO` (readonly) with fields: id, siteName, tagline, logoUrl, faviconUrl, primaryColor, secondaryColor, footerText
-  - [ ] 4.7 Create `UpdatePlatformBrandingDTO` (readonly) with all nullable fields: siteName, tagline, logoUrl, faviconUrl, primaryColor, secondaryColor, footerText
+- [x] 4. Create Branding module DTOs
+  - [x] 4.1 Create `CreatorProfileDTO` (readonly) with fields: id, userId, displayName, bio, avatarUrl, expertise, socialLinks, featuredCourseIds
+  - [x] 4.2 Create `UpdateCreatorProfileDTO` (readonly) with all nullable fields: displayName, bio, avatarUrl, expertise, socialLinks, featuredCourseIds
+  - [x] 4.3 Create `LandingPageSectionDTO` (readonly) with fields: id, sectionType, title, subtitle, content, imageUrl, ctaText, ctaUrl, sortOrder, isVisible, metadata
+  - [x] 4.4 Create `LandingPageDTO` (readonly) with fields: branding (PlatformBrandingDTO), sections (array of LandingPageSectionDTO), creatorProfile (CreatorProfileDTO|null), featuredCourses (array)
+  - [x] 4.5 Create `UpdateLandingPageDTO` (readonly) with fields: sections (array of section data to upsert)
+  - [x] 4.6 Create `PlatformBrandingDTO` (readonly) with fields: id, siteName, tagline, logoUrl, faviconUrl, primaryColor, secondaryColor, footerText
+  - [x] 4.7 Create `UpdatePlatformBrandingDTO` (readonly) with all nullable fields: siteName, tagline, logoUrl, faviconUrl, primaryColor, secondaryColor, footerText
 
 - [ ] 5. Create Branding service contract and implementation
   - [ ] 5.1 Create `BrandingServiceInterface` in Contracts with methods: getCreatorProfile, updateCreatorProfile, getLandingPageContent, updateLandingPageContent, getPlatformBranding, updatePlatformBranding, getCreatorName
