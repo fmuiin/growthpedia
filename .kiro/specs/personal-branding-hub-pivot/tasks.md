@@ -13,10 +13,10 @@
   - [x] 2.3 Create migration for `platform_brandings` table with columns: id, site_name, tagline, logo_url, favicon_url, primary_color, secondary_color, footer_text, metadata (JSON), timestamps
   - [x] 2.4 Run migrations and verify all three tables are created with correct columns and constraints
 
-- [ ] 3. Create Branding module models
-  - [ ] 3.1 Create `CreatorProfile` model with fillable fields, casts (social_links → array, featured_course_ids → array), and `user()` BelongsTo relationship
-  - [ ] 3.2 Create `LandingPageSection` model with fillable fields and casts (sort_order → integer, is_visible → boolean, metadata → array)
-  - [ ] 3.3 Create `PlatformBranding` model with fillable fields and casts (metadata → array)
+- [x] 3. Create Branding module models
+  - [x] 3.1 Create `CreatorProfile` model with fillable fields, casts (social_links → array, featured_course_ids → array), and `user()` BelongsTo relationship
+  - [x] 3.2 Create `LandingPageSection` model with fillable fields and casts (sort_order → integer, is_visible → boolean, metadata → array)
+  - [x] 3.3 Create `PlatformBranding` model with fillable fields and casts (metadata → array)
 
 - [ ] 4. Create Branding module DTOs
   - [ ] 4.1 Create `CreatorProfileDTO` (readonly) with fields: id, userId, displayName, bio, avatarUrl, expertise, socialLinks, featuredCourseIds
