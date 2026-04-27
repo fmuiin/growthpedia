@@ -37,10 +37,10 @@
   - [x] 5.7 Implement `BrandingService::updatePlatformBranding()` — creates or updates singleton record, invalidates cache
   - [x] 5.8 Implement `BrandingService::getCreatorName()` — returns display_name from creator profile (used by Catalog and Certificate modules)
 
-- [ ] 6. Create Branding module form requests
-  - [ ] 6.1 Create `UpdateCreatorProfileRequest` with validation rules: display_name (string, max:255), bio (nullable, string, max:5000), avatar_url (nullable, url, max:500), expertise (nullable, string, max:255), social_links (nullable, array with known keys), featured_course_ids (nullable, array of existing published course IDs)
-  - [ ] 6.2 Create `UpdateLandingPageSectionRequest` with validation rules: section_type (required, in:hero,about,featured_courses,testimonials,cta), title (nullable, string, max:255), subtitle (nullable, string), content (nullable, string), image_url (nullable, url, max:500), cta_text (nullable, string, max:100), cta_url (nullable, url, max:500), sort_order (integer), is_visible (boolean)
-  - [ ] 6.3 Create `UpdatePlatformBrandingRequest` with validation rules: site_name (string, max:255), tagline (nullable, string, max:500), logo_url (nullable, url, max:500), favicon_url (nullable, url, max:500), primary_color (regex for hex code), secondary_color (regex for hex code), footer_text (nullable, string)
+- [x] 6. Create Branding module form requests
+  - [x] 6.1 Create `UpdateCreatorProfileRequest` with validation rules: display_name (string, max:255), bio (nullable, string, max:5000), avatar_url (nullable, url, max:500), expertise (nullable, string, max:255), social_links (nullable, array with known keys), featured_course_ids (nullable, array of existing published course IDs)
+  - [x] 6.2 Create `UpdateLandingPageSectionRequest` with validation rules: section_type (required, in:hero,about,featured_courses,testimonials,cta), title (nullable, string, max:255), subtitle (nullable, string), content (nullable, string), image_url (nullable, url, max:500), cta_text (nullable, string, max:100), cta_url (nullable, url, max:500), sort_order (integer), is_visible (boolean)
+  - [x] 6.3 Create `UpdatePlatformBrandingRequest` with validation rules: site_name (string, max:255), tagline (nullable, string, max:500), logo_url (nullable, url, max:500), favicon_url (nullable, url, max:500), primary_color (regex for hex code), secondary_color (regex for hex code), footer_text (nullable, string)
 
 - [ ] 7. Create Branding module controllers and routes
   - [ ] 7.1 Create `BrandingController` with methods: showProfile, updateProfile, showLandingEditor, updateLandingSection, createLandingSection, deleteLandingSection, showPlatformBranding, updatePlatformBranding
