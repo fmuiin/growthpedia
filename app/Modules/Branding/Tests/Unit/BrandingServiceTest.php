@@ -98,7 +98,7 @@ test('updateCreatorProfile validates featured_course_ids are published', functio
     $admin = User::factory()->create(['role' => 'admin', 'name' => 'Admin']);
 
     $course = Course::create([
-        'instructor_id' => $admin->id,
+        'created_by' => $admin->id,
         'title' => 'Draft Course',
         'description' => 'A draft course',
         'category' => 'PHP',
@@ -116,7 +116,7 @@ test('updateCreatorProfile accepts published course ids', function () {
     $admin = User::factory()->create(['role' => 'admin', 'name' => 'Admin']);
 
     $course = Course::create([
-        'instructor_id' => $admin->id,
+        'created_by' => $admin->id,
         'title' => 'Published Course',
         'description' => 'A published course',
         'category' => 'PHP',
@@ -193,7 +193,7 @@ test('getLandingPageContent uses featured courses from creator profile when set'
     $admin = User::factory()->create(['role' => 'admin']);
 
     $publishedCourse = Course::create([
-        'instructor_id' => $admin->id,
+        'created_by' => $admin->id,
         'title' => 'Featured Course',
         'description' => 'Featured',
         'category' => 'PHP',
@@ -202,7 +202,7 @@ test('getLandingPageContent uses featured courses from creator profile when set'
     ]);
 
     $otherCourse = Course::create([
-        'instructor_id' => $admin->id,
+        'created_by' => $admin->id,
         'title' => 'Other Course',
         'description' => 'Other',
         'category' => 'JS',
@@ -227,7 +227,7 @@ test('getLandingPageContent falls back to latest 6 published courses when no fea
 
     for ($i = 0; $i < 8; $i++) {
         Course::create([
-            'instructor_id' => $admin->id,
+            'created_by' => $admin->id,
             'title' => "Course {$i}",
             'description' => "Description {$i}",
             'category' => 'PHP',

@@ -33,9 +33,9 @@ class CertificateServiceTest extends TestCase
     private function createCompletedEnrollment(): array
     {
         $user = User::factory()->create(['name' => 'Jane Doe']);
-        $instructor = User::factory()->create();
+        $admin = User::factory()->create(['role' => 'admin']);
         $course = Course::create([
-            'instructor_id' => $instructor->id,
+            'created_by' => $admin->id,
             'title' => 'Laravel Mastery',
             'description' => 'Master Laravel',
             'category' => 'Programming',
@@ -175,18 +175,18 @@ class CertificateServiceTest extends TestCase
     public function test_get_user_certificates_returns_all_user_certificates(): void
     {
         $user = User::factory()->create(['name' => 'Jane Doe']);
-        $instructor = User::factory()->create();
+        $admin = User::factory()->create(['role' => 'admin']);
 
         // Create two courses with completed enrollments
         $course1 = Course::create([
-            'instructor_id' => $instructor->id,
+            'created_by' => $admin->id,
             'title' => 'Course A',
             'description' => 'Desc A',
             'category' => 'Cat',
             'status' => 'published',
         ]);
         $course2 = Course::create([
-            'instructor_id' => $instructor->id,
+            'created_by' => $admin->id,
             'title' => 'Course B',
             'description' => 'Desc B',
             'category' => 'Cat',

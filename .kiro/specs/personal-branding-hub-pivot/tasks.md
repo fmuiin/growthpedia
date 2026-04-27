@@ -103,13 +103,13 @@
   - [x] 14.6 Update `CourseDetail.tsx` (Catalog): replace `instructorName`/`instructorBio` with `creatorName`/`creatorBio`
   - [x] 14.7 Update `Admin/UserManagement.tsx`: remove 'instructor' from role assignment options
 
-- [ ] 15. Update existing tests for Phase 2 changes
-  - [ ] 15.1 Update Course module unit tests: adjust for removed instructorId in CreateCourseDTO, simplified policy checks, admin-only course listing
-  - [ ] 15.2 Update Course module integration tests: verify admin-only course creation, learner rejection, updated middleware
-  - [ ] 15.3 Update Catalog module tests: verify creatorName sourced from BrandingService, no instructor eager-loading
-  - [ ] 15.4 Update User module tests: verify 'instructor' role assignment is rejected, VALID_ROLES updated
-  - [ ] 15.5 Update Admin module tests: verify role assignment dropdown only shows 'learner' and 'admin'
-  - [ ] 15.6 Run full test suite to verify no regressions in Subscription, Payment, Progress, Discussion, Certificate modules
+- [x] 15. Update existing tests for Phase 2 changes
+  - [x] 15.1 Update Course module unit tests: adjust for removed instructorId in CreateCourseDTO, simplified policy checks, admin-only course listing
+  - [x] 15.2 Update Course module integration tests: verify admin-only course creation, learner rejection, updated middleware
+  - [x] 15.3 Update Catalog module tests: verify creatorName sourced from BrandingService, no instructor eager-loading
+  - [x] 15.4 Update User module tests: verify 'instructor' role assignment is rejected, VALID_ROLES updated
+  - [x] 15.5 Update Admin module tests: verify role assignment dropdown only shows 'learner' and 'admin'
+  - [x] 15.6 Run full test suite to verify no regressions in Subscription, Payment, Progress, Discussion, Certificate modules
 
 ## Phase 3: Landing Page and Branding Integration
 

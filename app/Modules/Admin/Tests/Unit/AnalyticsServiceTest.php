@@ -43,20 +43,19 @@ class AnalyticsServiceTest extends TestCase
         // Create learners
         User::factory()->create(['role' => 'learner']);
         User::factory()->create(['role' => 'learner']);
-        User::factory()->create(['role' => 'instructor']);
         User::factory()->create(['role' => 'admin']);
 
         // Create courses
-        $instructor = User::factory()->create(['role' => 'instructor']);
+        $admin = User::factory()->create(['role' => 'admin']);
         Course::create([
-            'instructor_id' => $instructor->id,
+            'created_by' => $admin->id,
             'title' => 'Course 1',
             'description' => 'Desc',
             'category' => 'Tech',
             'status' => 'published',
         ]);
         Course::create([
-            'instructor_id' => $instructor->id,
+            'created_by' => $admin->id,
             'title' => 'Course 2',
             'description' => 'Desc',
             'category' => 'Tech',
@@ -113,7 +112,7 @@ class AnalyticsServiceTest extends TestCase
 
     public function test_get_dashboard_metrics_filters_revenue_by_date_range(): void
     {
-        $instructor = User::factory()->create(['role' => 'instructor']);
+        $admin = User::factory()->create(['role' => 'admin']);
         $plan = MembershipPlan::create([
             'name' => 'Plan',
             'price' => '100.00',
@@ -121,7 +120,7 @@ class AnalyticsServiceTest extends TestCase
             'is_active' => true,
         ]);
         $sub = Subscription::create([
-            'user_id' => $instructor->id,
+            'user_id' => $admin->id,
             'membership_plan_id' => $plan->id,
             'status' => 'active',
             'starts_at' => now(),
@@ -179,9 +178,9 @@ class AnalyticsServiceTest extends TestCase
 
     public function test_get_course_analytics_returns_correct_data(): void
     {
-        $instructor = User::factory()->create(['role' => 'instructor']);
+        $admin = User::factory()->create(['role' => 'admin']);
         $course = Course::create([
-            'instructor_id' => $instructor->id,
+            'created_by' => $admin->id,
             'title' => 'Analytics Course',
             'description' => 'Desc',
             'category' => 'Tech',
@@ -216,9 +215,9 @@ class AnalyticsServiceTest extends TestCase
 
     public function test_get_course_analytics_with_no_enrollments(): void
     {
-        $instructor = User::factory()->create(['role' => 'instructor']);
+        $admin = User::factory()->create(['role' => 'admin']);
         $course = Course::create([
-            'instructor_id' => $instructor->id,
+            'created_by' => $admin->id,
             'title' => 'Empty Course',
             'description' => 'Desc',
             'category' => 'Tech',
@@ -256,11 +255,11 @@ class AnalyticsServiceTest extends TestCase
 
     public function test_export_csv_contains_metrics_data(): void
     {
-        $instructor = User::factory()->create(['role' => 'instructor']);
+        $admin = User::factory()->create(['role' => 'admin']);
         User::factory()->create(['role' => 'learner']);
 
         Course::create([
-            'instructor_id' => $instructor->id,
+            'created_by' => $admin->id,
             'title' => 'CSV Course',
             'description' => 'Desc',
             'category' => 'Tech',
@@ -290,9 +289,9 @@ class AnalyticsServiceTest extends TestCase
 
     public function test_get_flagged_comments_returns_paginated_results(): void
     {
-        $instructor = User::factory()->create(['role' => 'instructor']);
+        $admin = User::factory()->create(['role' => 'admin']);
         $course = Course::create([
-            'instructor_id' => $instructor->id,
+            'created_by' => $admin->id,
             'title' => 'Course',
             'description' => 'Desc',
             'category' => 'Tech',

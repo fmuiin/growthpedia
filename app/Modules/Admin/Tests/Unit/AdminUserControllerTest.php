@@ -82,15 +82,27 @@ class AdminUserControllerTest extends TestCase
 
         $response = $this->actingAs($this->admin)
             ->post(route('admin.users.assign-role', $learner->id), [
-                'role' => 'instructor',
+                'role' => 'admin',
             ]);
 
         $response->assertRedirect();
         $response->assertSessionHas('success');
         $this->assertDatabaseHas('users', [
             'id' => $learner->id,
-            'role' => 'instructor',
+            'role' => 'admin',
         ]);
+    }
+
+    public function test_assign_role_rejects_instructor_role(): void
+    {
+        $learner = User::factory()->create(['role' => 'learner']);
+
+        $response = $this->actingAs($this->admin)
+            ->post(route('admin.users.assign-role', $learner->id), [
+                'role' => 'instructor',
+            ]);
+
+        $response->assertSessionHasErrors('role');
     }
 
     public function test_assign_role_rejects_invalid_role(): void

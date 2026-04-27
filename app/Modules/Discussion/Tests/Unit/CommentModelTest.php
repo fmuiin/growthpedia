@@ -18,9 +18,9 @@ class CommentModelTest extends TestCase
 
     private function createLesson(): Lesson
     {
-        $instructor = User::factory()->create();
+        $admin = User::factory()->create(['role' => 'admin']);
         $course = Course::create([
-            'instructor_id' => $instructor->id,
+            'created_by' => $admin->id,
             'title' => 'Test Course',
             'description' => 'A test course',
             'category' => 'Testing',

@@ -36,9 +36,9 @@ class ProgressServiceTest extends TestCase
 
     private function createCourseWithLessons(int $lessonCount = 3): array
     {
-        $instructor = User::factory()->create();
+        $admin = User::factory()->create(['role' => 'admin']);
         $course = Course::create([
-            'instructor_id' => $instructor->id,
+            'created_by' => $admin->id,
             'title' => 'Test Course',
             'description' => 'Description',
             'category' => 'Testing',
@@ -206,9 +206,9 @@ class ProgressServiceTest extends TestCase
         Event::fake();
 
         $user = User::factory()->create();
-        $instructor = User::factory()->create();
+        $admin = User::factory()->create(['role' => 'admin']);
         $course = Course::create([
-            'instructor_id' => $instructor->id,
+            'created_by' => $admin->id,
             'title' => 'Course',
             'description' => 'Desc',
             'category' => 'Cat',
@@ -319,9 +319,9 @@ class ProgressServiceTest extends TestCase
         Event::fake();
 
         $user = User::factory()->create();
-        $instructor = User::factory()->create();
+        $admin = User::factory()->create(['role' => 'admin']);
         $course = Course::create([
-            'instructor_id' => $instructor->id,
+            'created_by' => $admin->id,
             'title' => 'Course',
             'description' => 'Desc',
             'category' => 'Cat',

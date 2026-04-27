@@ -497,16 +497,16 @@ class SubscriptionServiceTest extends TestCase
     public function test_get_user_plan_course_ids_returns_course_ids(): void
     {
         $user = User::factory()->create();
-        $instructor = User::factory()->create();
+        $admin = User::factory()->create(['role' => 'admin']);
         $course1 = Course::create([
-            'instructor_id' => $instructor->id,
+            'created_by' => $admin->id,
             'title' => 'Course 1',
             'description' => 'Desc',
             'category' => 'Cat',
             'status' => 'published',
         ]);
         $course2 = Course::create([
-            'instructor_id' => $instructor->id,
+            'created_by' => $admin->id,
             'title' => 'Course 2',
             'description' => 'Desc',
             'category' => 'Cat',

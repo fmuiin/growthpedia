@@ -72,14 +72,14 @@ class MembershipPlanServiceTest extends TestCase
     {
         $user = User::factory()->create();
         $course1 = Course::create([
-            'instructor_id' => $user->id,
+            'created_by' => $user->id,
             'title' => 'Course 1',
             'description' => 'Desc',
             'category' => 'Cat',
             'status' => 'published',
         ]);
         $course2 = Course::create([
-            'instructor_id' => $user->id,
+            'created_by' => $user->id,
             'title' => 'Course 2',
             'description' => 'Desc',
             'category' => 'Cat',
@@ -126,7 +126,7 @@ class MembershipPlanServiceTest extends TestCase
     {
         $user = User::factory()->create();
         $course = Course::create([
-            'instructor_id' => $user->id,
+            'created_by' => $user->id,
             'title' => 'New Course',
             'description' => 'Desc',
             'category' => 'Cat',
@@ -285,7 +285,7 @@ class MembershipPlanServiceTest extends TestCase
     {
         $user = User::factory()->create();
         $course = Course::create([
-            'instructor_id' => $user->id,
+            'created_by' => $user->id,
             'title' => 'Course',
             'description' => 'Desc',
             'category' => 'Cat',

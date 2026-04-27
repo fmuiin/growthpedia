@@ -225,12 +225,40 @@ test('suspendUser allows suspending admin when another admin exists', function (
 test('assignRole updates user role', function () {
     $user = User::factory()->create(['role' => 'learner']);
 
-    $result = $this->service->assignRole($user->id, 'instructor');
+    $result = $this->service->assignRole($user->id, 'admin');
 
-    expect($result->role)->toBe('instructor');
+    expect($result->role)->toBe('admin');
 
     $user->refresh();
-    expect($user->role)->toBe('instructor');
+    expect($user->role)->toBe('admin');
+});
+
+test('assignRole rejects instructor role', function () {
+    $user = User::factory()->create(['role' => 'learner']);
+
+    $this->service->assignRole($user->id, 'instructor');
+})->throws(ValidationException::class);
+
+test('assignRole allows learner role', function () {
+    $user = User::factory()->create(['role' => 'admin']);
+
+    $result = $this->service->assignRole($user->id, 'learner');
+
+    expect($result->role)->toBe('learner');
+
+    $user->refresh();
+    expect($user->role)->toBe('learner');
+});
+
+test('assignRole allows admin role', function () {
+    $user = User::factory()->create(['role' => 'learner']);
+
+    $result = $this->service->assignRole($user->id, 'admin');
+
+    expect($result->role)->toBe('admin');
+
+    $user->refresh();
+    expect($user->role)->toBe('admin');
 });
 
 test('assignRole throws ValidationException for invalid role', function () {

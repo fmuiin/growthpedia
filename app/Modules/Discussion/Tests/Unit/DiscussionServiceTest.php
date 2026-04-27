@@ -39,9 +39,9 @@ class DiscussionServiceTest extends TestCase
 
     private function createLesson(): Lesson
     {
-        $instructor = User::factory()->create(['role' => 'instructor']);
+        $admin = User::factory()->create(['role' => 'admin']);
         $course = Course::create([
-            'instructor_id' => $instructor->id,
+            'created_by' => $admin->id,
             'title' => 'Test Course',
             'description' => 'A test course',
             'category' => 'Testing',
@@ -91,16 +91,16 @@ class DiscussionServiceTest extends TestCase
 
     public function test_create_comment_as_instructor_without_subscription(): void
     {
-        $instructor = User::factory()->create(['name' => 'Prof Smith', 'role' => 'instructor']);
+        $admin = User::factory()->create(['name' => 'Prof Smith', 'role' => 'admin']);
         $lesson = $this->createLesson();
 
-        // Instructor should not need a subscription check
+        // Admin should not need a subscription check
         $this->subscriptionService->method('hasActiveSubscription')->willReturn(false);
 
-        $result = $this->service->createComment($instructor->id, $lesson->id, 'Instructor comment');
+        $result = $this->service->createComment($admin->id, $lesson->id, 'Admin comment');
 
         $this->assertInstanceOf(CommentDTO::class, $result);
-        $this->assertEquals('Instructor comment', $result->content);
+        $this->assertEquals('Admin comment', $result->content);
         $this->assertEquals('Prof Smith', $result->authorName);
     }
 
@@ -175,12 +175,12 @@ class DiscussionServiceTest extends TestCase
     public function test_reply_to_comment_throws_when_no_subscription(): void
     {
         $user = User::factory()->create(['role' => 'learner']);
-        $poster = User::factory()->create(['role' => 'instructor']);
+        $poster = User::factory()->create(['role' => 'admin']);
         $lesson = $this->createLesson();
 
         $this->subscriptionService->method('hasActiveSubscription')->willReturn(false);
 
-        // Create parent comment as instructor (bypasses subscription check)
+        // Create parent comment as admin (bypasses subscription check)
         $parent = Comment::create([
             'user_id' => $poster->id,
             'lesson_id' => $lesson->id,
