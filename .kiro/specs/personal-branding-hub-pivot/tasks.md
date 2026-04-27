@@ -64,11 +64,11 @@
 
 ## Phase 2: Instructor Role Removal (Breaking Changes)
 
-- [ ] 10. Create database migrations for instructor removal
-  - [ ] 10.1 Create migration to promote all instructor users to admin: `UPDATE users SET role = 'admin' WHERE role = 'instructor'`
-  - [ ] 10.2 Create migration to rename `courses.instructor_id` to `courses.created_by` (data-preserving column rename)
-  - [ ] 10.3 Create migration to update users role enum constraint: drop old constraint, add new constraint allowing only 'learner' and 'admin'; include orphaned course handling (reassign to first admin)
-  - [ ] 10.4 Run migrations and verify: zero instructor users, all courses have valid created_by, role constraint enforced
+- [x] 10. Create database migrations for instructor removal
+  - [x] 10.1 Create migration to promote all instructor users to admin: `UPDATE users SET role = 'admin' WHERE role = 'instructor'`
+  - [x] 10.2 Create migration to rename `courses.instructor_id` to `courses.created_by` (data-preserving column rename)
+  - [x] 10.3 Create migration to update users role enum constraint: drop old constraint, add new constraint allowing only 'learner' and 'admin'; include orphaned course handling (reassign to first admin)
+  - [x] 10.4 Run migrations and verify: zero instructor users, all courses have valid created_by, role constraint enforced
 
 - [ ] 11. Update Course module for single-creator ownership
   - [ ] 11.1 Update `Course` model: rename `instructor_id` in fillable to `created_by`, rename `instructor()` relationship to `creator()`, update any references
