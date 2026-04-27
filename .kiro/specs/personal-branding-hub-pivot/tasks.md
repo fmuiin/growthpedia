@@ -48,13 +48,13 @@
   - [x] 7.3 Create admin routes in `Routes/web.php`: GET/PUT `/admin/branding/profile`, GET/POST/PUT/DELETE `/admin/branding/landing-sections`, GET/PUT `/admin/branding/platform` — all behind auth + admin middleware
   - [x] 7.4 Create public route: GET `/creator` — accessible without authentication
 
-- [ ] 8. Create Branding module frontend pages
-  - [ ] 8.1 Create TypeScript types for Branding module: `CreatorProfile`, `LandingPageSection`, `PlatformBranding`, `LandingPageData` in `resources/js/Types`
-  - [ ] 8.2 Create `Admin/CreatorProfileEdit.tsx` page — form for editing display name, bio, avatar URL, expertise, social links, featured course selection
-  - [ ] 8.3 Create `Admin/LandingPageEditor.tsx` page — section list with drag-to-reorder, add/edit/delete sections, visibility toggles
-  - [ ] 8.4 Create `Admin/PlatformBrandingEdit.tsx` page — form for site name, tagline, logo URL, favicon URL, color pickers, footer text
-  - [ ] 8.5 Create `CreatorProfile.tsx` public page — displays creator bio, avatar, expertise, social links, and featured courses
-  - [ ] 8.6 Add navigation links to admin sidebar for branding management pages
+- [x] 8. Create Branding module frontend pages
+  - [x] 8.1 Create TypeScript types for Branding module: `CreatorProfile`, `LandingPageSection`, `PlatformBranding`, `LandingPageData` in `resources/js/Types`
+  - [x] 8.2 Create `Admin/CreatorProfileEdit.tsx` page — form for editing display name, bio, avatar URL, expertise, social links, featured course selection
+  - [x] 8.3 Create `Admin/LandingPageEditor.tsx` page — section list with drag-to-reorder, add/edit/delete sections, visibility toggles
+  - [x] 8.4 Create `Admin/PlatformBrandingEdit.tsx` page — form for site name, tagline, logo URL, favicon URL, color pickers, footer text
+  - [x] 8.5 Create `CreatorProfile.tsx` public page — displays creator bio, avatar, expertise, social links, and featured courses
+  - [x] 8.6 Add navigation links to admin sidebar for branding management pages
 
 - [ ] 9. Write tests for Branding module
   - [ ] 9.1 Write unit tests for `BrandingService` — test getCreatorProfile (auto-init and existing), updateCreatorProfile (valid and invalid featured courses), getLandingPageContent (ordering, visibility filtering, empty state), getPlatformBranding (defaults and existing), updatePlatformBranding, getCreatorName

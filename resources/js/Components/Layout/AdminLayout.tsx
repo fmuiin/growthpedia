@@ -6,11 +6,17 @@ interface AdminLayoutProps {
     children: ReactNode;
 }
 
-const navItems = [
+const managementItems = [
     { href: '/admin/users', label: 'Users' },
     { href: '/admin/analytics', label: 'Analytics' },
     { href: '/admin/analytics/flagged-comments', label: 'Flagged Comments' },
     { href: '/admin/plans', label: 'Membership Plans' },
+];
+
+const brandingItems = [
+    { href: '/admin/branding/profile', label: 'Creator Profile' },
+    { href: '/admin/branding/landing-sections', label: 'Landing Page' },
+    { href: '/admin/branding/platform', label: 'Platform Branding' },
 ];
 
 export default function AdminLayout({ children }: AdminLayoutProps) {
@@ -36,7 +42,28 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
                         Admin Panel
                     </p>
                     <ul className="space-y-1">
-                        {navItems.map((item) => (
+                        {managementItems.map((item) => (
+                            <li key={item.href}>
+                                <Link
+                                    href={item.href}
+                                    className={`block rounded-lg px-3 py-2 text-sm font-medium transition ${
+                                        isActive(item.href)
+                                            ? 'bg-indigo-50 text-indigo-700'
+                                            : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
+                                    }`}
+                                    aria-current={isActive(item.href) ? 'page' : undefined}
+                                >
+                                    {item.label}
+                                </Link>
+                            </li>
+                        ))}
+                    </ul>
+
+                    <p className="mb-3 mt-6 px-2 text-xs font-semibold uppercase tracking-wider text-gray-400">
+                        Branding
+                    </p>
+                    <ul className="space-y-1">
+                        {brandingItems.map((item) => (
                             <li key={item.href}>
                                 <Link
                                     href={item.href}
