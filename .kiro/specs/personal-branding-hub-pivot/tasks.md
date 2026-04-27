@@ -56,11 +56,11 @@
   - [x] 8.5 Create `CreatorProfile.tsx` public page — displays creator bio, avatar, expertise, social links, and featured courses
   - [x] 8.6 Add navigation links to admin sidebar for branding management pages
 
-- [ ] 9. Write tests for Branding module
-  - [ ] 9.1 Write unit tests for `BrandingService` — test getCreatorProfile (auto-init and existing), updateCreatorProfile (valid and invalid featured courses), getLandingPageContent (ordering, visibility filtering, empty state), getPlatformBranding (defaults and existing), updatePlatformBranding, getCreatorName
-  - [ ] 9.2 Write unit tests for form request validation — UpdateCreatorProfileRequest, UpdateLandingPageSectionRequest (valid section types, invalid types), UpdatePlatformBrandingRequest (hex color validation)
-  - [ ] 9.3 Write integration tests — admin can CRUD creator profile via HTTP, admin can CRUD landing sections via HTTP, admin can update platform branding via HTTP, non-admin gets 403 on all branding routes, public /creator page renders correctly
-  - [ ] 9.4 Write property-based tests with Eris — for any valid UpdateCreatorProfileDTO the update-then-read cycle returns updated values; for any set of sections with unique sort_orders getLandingPageContent returns them sorted ascending; singleton constraint holds for creator_profiles and platform_brandings
+- [x] 9. Write tests for Branding module
+  - [x] 9.1 Write unit tests for `BrandingService` — test getCreatorProfile (auto-init and existing), updateCreatorProfile (valid and invalid featured courses), getLandingPageContent (ordering, visibility filtering, empty state), getPlatformBranding (defaults and existing), updatePlatformBranding, getCreatorName
+  - [x] 9.2 Write unit tests for form request validation — UpdateCreatorProfileRequest, UpdateLandingPageSectionRequest (valid section types, invalid types), UpdatePlatformBrandingRequest (hex color validation)
+  - [x] 9.3 Write integration tests — admin can CRUD creator profile via HTTP, admin can CRUD landing sections via HTTP, admin can update platform branding via HTTP, non-admin gets 403 on all branding routes, public /creator page renders correctly
+  - [x] 9.4 Write property-based tests with Eris — for any valid UpdateCreatorProfileDTO the update-then-read cycle returns updated values; for any set of sections with unique sort_orders getLandingPageContent returns them sorted ascending; singleton constraint holds for creator_profiles and platform_brandings
 
 ## Phase 2: Instructor Role Removal (Breaking Changes)
 
