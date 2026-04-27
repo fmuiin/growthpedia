@@ -86,13 +86,13 @@
   - [x] 12.1 Update `UserService::VALID_ROLES` constant from `['learner', 'instructor', 'admin']` to `['learner', 'admin']`
   - [x] 12.2 Update `AssignRoleRequest` validation rule from `'in:learner,instructor,admin'` to `'in:learner,admin'`
 
-- [ ] 13. Update Catalog module to use Branding for creator name
-  - [ ] 13.1 Add `BrandingServiceInterface` dependency to `CatalogService` constructor via dependency injection
-  - [ ] 13.2 Update `CatalogService::browse()`: remove `with('instructor')` eager-load, use `$this->brandingService->getCreatorName()` for creatorName in DTOs
-  - [ ] 13.3 Update `CatalogService::search()`: remove `with('instructor')` eager-load, use branding service for creator name
-  - [ ] 13.4 Update `CatalogService::getCourseDetail()`: remove `with('instructor')` from query, source creatorName and creatorBio from BrandingService
-  - [ ] 13.5 Update `CatalogCourseDTO`: rename `instructorName` to `creatorName`
-  - [ ] 13.6 Update `CatalogCourseDetailDTO`: rename `instructorName` to `creatorName`, rename `instructorBio` to `creatorBio`
+- [x] 13. Update Catalog module to use Branding for creator name
+  - [x] 13.1 Add `BrandingServiceInterface` dependency to `CatalogService` constructor via dependency injection
+  - [x] 13.2 Update `CatalogService::browse()`: remove `with('instructor')` eager-load, use `$this->brandingService->getCreatorName()` for creatorName in DTOs
+  - [x] 13.3 Update `CatalogService::search()`: remove `with('instructor')` eager-load, use branding service for creator name
+  - [x] 13.4 Update `CatalogService::getCourseDetail()`: remove `with('instructor')` from query, source creatorName and creatorBio from BrandingService
+  - [x] 13.5 Update `CatalogCourseDTO`: rename `instructorName` to `creatorName`
+  - [x] 13.6 Update `CatalogCourseDetailDTO`: rename `instructorName` to `creatorName`, rename `instructorBio` to `creatorBio`
 
 - [ ] 14. Update affected frontend components and TypeScript types
   - [ ] 14.1 Update TypeScript types: replace `instructorId`/`instructorName`/`instructorBio` with `createdBy`/`creatorName`/`creatorBio` in Course and Catalog types

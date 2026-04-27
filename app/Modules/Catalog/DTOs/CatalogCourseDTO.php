@@ -12,7 +12,7 @@ readonly class CatalogCourseDTO extends BaseDTO
         public int $id,
         public string $title,
         public string $descriptionSummary,
-        public string $instructorName,
+        public string $creatorName,
         public string $category,
         public string $publishedAt,
     ) {}

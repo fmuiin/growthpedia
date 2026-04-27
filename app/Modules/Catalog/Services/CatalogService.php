@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Modules\Catalog\Services;
 
+use App\Modules\Branding\Contracts\BrandingServiceInterface;
 use App\Modules\Catalog\Contracts\CatalogServiceInterface;
 use App\Modules\Catalog\DTOs\CatalogCourseDetailDTO;
 use App\Modules\Catalog\DTOs\CatalogCourseDTO;
@@ -23,14 +24,17 @@ class CatalogService implements CatalogServiceInterface
 
     private const int CACHE_TTL_SECONDS = 300; // 5 minutes
 
+    public function __construct(
+        private readonly BrandingServiceInterface $brandingService,
+    ) {}
+
     public function browse(int $page = 1, ?string $category = null, ?string $sortBy = null): PaginatedCoursesDTO
     {
         $cacheKey = "catalog:browse:page={$page}:cat=" . ($category ?? 'all') . ":sort=" . ($sortBy ?? 'recent');
 
         return Cache::remember($cacheKey, self::CACHE_TTL_SECONDS, function () use ($page, $category, $sortBy): PaginatedCoursesDTO {
             $query = Course::query()
-                ->where('status', 'published')
-                ->with('instructor');
+                ->where('status', 'published');
 
             if ($category !== null && $category !== '') {
                 $query->where('category', $category);
@@ -72,7 +76,6 @@ class CatalogService implements CatalogServiceInterface
                         ->orWhere('description', 'ilike', $searchTerm)
                         ->orWhere('category', 'ilike', $searchTerm);
                 })
-                ->with('instructor')
                 ->orderByDesc('published_at');
 
             $paginator = $dbQuery->paginate(self::PER_PAGE, ['*'], 'page', $page);
@@ -96,7 +99,7 @@ class CatalogService implements CatalogServiceInterface
         $cacheKey = "catalog:detail:{$courseId}";
 
         return Cache::remember($cacheKey, self::CACHE_TTL_SECONDS, function () use ($courseId): CatalogCourseDetailDTO {
-            $course = Course::with(['instructor', 'modules.lessons'])
+            $course = Course::with(['modules.lessons'])
                 ->where('status', 'published')
                 ->find($courseId);
 
@@ -138,8 +141,8 @@ class CatalogService implements CatalogServiceInterface
                 title: $course->title,
                 description: $course->description,
                 category: $course->category,
-                instructorName: $course->instructor->name,
-                instructorBio: $course->instructor->bio ?? null,
+                creatorName: $this->brandingService->getCreatorName(),
+                creatorBio: $this->brandingService->getCreatorProfile()->bio,
                 publishedAt: $course->published_at->toIso8601String(),
                 modules: $modules,
                 enrollmentCount: $enrollmentCount,
@@ -154,7 +157,7 @@ class CatalogService implements CatalogServiceInterface
             id: $course->id,
             title: $course->title,
             descriptionSummary: Str::limit($course->description, 200),
-            instructorName: $course->instructor->name,
+            creatorName: $this->brandingService->getCreatorName(),
             category: $course->category,
             publishedAt: $course->published_at->toIso8601String(),
         );
