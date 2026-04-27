@@ -19,7 +19,7 @@ class AssignRoleRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'role' => ['required', 'string', 'in:learner,instructor,admin'],
+            'role' => ['required', 'string', 'in:learner,admin'],
         ];
     }
 }

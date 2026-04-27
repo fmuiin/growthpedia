@@ -34,7 +34,7 @@ class UserService implements UserServiceInterface
     private const int EMAIL_VERIFICATION_HOURS = 24;
     private const int PASSWORD_RESET_MINUTES = 60;
     private const int SEARCH_PER_PAGE = 15;
-    private const array VALID_ROLES = ['learner', 'instructor', 'admin'];
+    private const array VALID_ROLES = ['learner', 'admin'];
 
     public function register(RegisterDTO $dto): UserDTO
     {

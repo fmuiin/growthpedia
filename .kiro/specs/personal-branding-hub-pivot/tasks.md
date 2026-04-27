@@ -82,9 +82,9 @@
   - [x] 11.9 Update `CourseController::store()`: remove `instructorId` from CreateCourseDTO construction
   - [x] 11.10 Update Course `Routes/web.php`: change middleware from `role:instructor,admin` to `role:admin`
 
-- [ ] 12. Update User module for simplified roles
-  - [ ] 12.1 Update `UserService::VALID_ROLES` constant from `['learner', 'instructor', 'admin']` to `['learner', 'admin']`
-  - [ ] 12.2 Update `AssignRoleRequest` validation rule from `'in:learner,instructor,admin'` to `'in:learner,admin'`
+- [x] 12. Update User module for simplified roles
+  - [x] 12.1 Update `UserService::VALID_ROLES` constant from `['learner', 'instructor', 'admin']` to `['learner', 'admin']`
+  - [x] 12.2 Update `AssignRoleRequest` validation rule from `'in:learner,instructor,admin'` to `'in:learner,admin'`
 
 - [ ] 13. Update Catalog module to use Branding for creator name
   - [ ] 13.1 Add `BrandingServiceInterface` dependency to `CatalogService` constructor via dependency injection
