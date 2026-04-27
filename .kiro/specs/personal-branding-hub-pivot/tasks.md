@@ -7,11 +7,11 @@
   - [x] 1.2 Create `BrandingServiceProvider` in `app/Modules/Branding/Providers` that binds `BrandingServiceInterface` to `BrandingService` and loads routes from `Routes/web.php`
   - [x] 1.3 Verify auto-discovery works — `ModuleServiceProvider` picks up `BrandingServiceProvider` on application boot
 
-- [ ] 2. Create database migrations for new tables
-  - [ ] 2.1 Create migration for `creator_profiles` table with columns: id, user_id (unique FK to users), display_name, bio, avatar_url, expertise, social_links (JSON), featured_course_ids (JSON), timestamps
-  - [ ] 2.2 Create migration for `landing_page_sections` table with columns: id, section_type, title, subtitle, content, image_url, cta_text, cta_url, sort_order, is_visible, metadata (JSON), timestamps
-  - [ ] 2.3 Create migration for `platform_brandings` table with columns: id, site_name, tagline, logo_url, favicon_url, primary_color, secondary_color, footer_text, metadata (JSON), timestamps
-  - [ ] 2.4 Run migrations and verify all three tables are created with correct columns and constraints
+- [x] 2. Create database migrations for new tables
+  - [x] 2.1 Create migration for `creator_profiles` table with columns: id, user_id (unique FK to users), display_name, bio, avatar_url, expertise, social_links (JSON), featured_course_ids (JSON), timestamps
+  - [x] 2.2 Create migration for `landing_page_sections` table with columns: id, section_type, title, subtitle, content, image_url, cta_text, cta_url, sort_order, is_visible, metadata (JSON), timestamps
+  - [x] 2.3 Create migration for `platform_brandings` table with columns: id, site_name, tagline, logo_url, favicon_url, primary_color, secondary_color, footer_text, metadata (JSON), timestamps
+  - [x] 2.4 Run migrations and verify all three tables are created with correct columns and constraints
 
 - [ ] 3. Create Branding module models
   - [ ] 3.1 Create `CreatorProfile` model with fillable fields, casts (social_links → array, featured_course_ids → array), and `user()` BelongsTo relationship
