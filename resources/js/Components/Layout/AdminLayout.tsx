@@ -20,8 +20,9 @@ const brandingItems = [
 ];
 
 export default function AdminLayout({ children }: AdminLayoutProps) {
-    const { auth, flash } = usePage<PageProps>().props;
+    const { auth, flash, branding } = usePage<PageProps>().props;
     const currentUrl = usePage().url;
+    const siteName = branding?.siteName ?? 'GrowthPedia';
 
     function isActive(href: string): boolean {
         return currentUrl.startsWith(href);
@@ -32,8 +33,16 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
             {/* Sidebar */}
             <aside className="flex w-64 flex-col border-r border-gray-200 bg-white">
                 <div className="flex h-16 items-center border-b border-gray-200 px-6">
-                    <Link href="/" className="text-xl font-bold text-indigo-600">
-                        GrowthPedia
+                    <Link href="/" className="flex items-center gap-2">
+                        {branding?.logoUrl ? (
+                            <img src={branding.logoUrl} alt={siteName} className="h-8 w-auto" />
+                        ) : null}
+                        <span
+                            className="text-xl font-bold"
+                            style={{ color: branding?.primaryColor ?? '#4F46E5' }}
+                        >
+                            {siteName}
+                        </span>
                     </Link>
                 </div>
 

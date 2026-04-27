@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Modules\Branding\Contracts\BrandingServiceInterface;
 use Illuminate\Http\Request;
 use Inertia\Middleware;
 
@@ -54,6 +55,25 @@ class HandleInertiaRequests extends Middleware
                 'success' => fn () => $request->session()->get('success'),
                 'error' => fn () => $request->session()->get('error'),
             ],
+            'branding' => fn () => $this->getBrandingData(),
+        ];
+    }
+
+    /**
+     * Retrieve platform branding data to share on every page load.
+     *
+     * @return array{siteName: string, logoUrl: string|null, primaryColor: string, secondaryColor: string}
+     */
+    private function getBrandingData(): array
+    {
+        $brandingService = app(BrandingServiceInterface::class);
+        $branding = $brandingService->getPlatformBranding();
+
+        return [
+            'siteName' => $branding->siteName,
+            'logoUrl' => $branding->logoUrl,
+            'primaryColor' => $branding->primaryColor,
+            'secondaryColor' => $branding->secondaryColor,
         ];
     }
 }

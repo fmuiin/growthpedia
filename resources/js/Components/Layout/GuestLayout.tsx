@@ -7,13 +7,24 @@ interface GuestLayoutProps {
 }
 
 export default function GuestLayout({ children }: GuestLayoutProps) {
-    const { flash } = usePage<PageProps>().props;
+    const { flash, branding } = usePage<PageProps>().props;
+    const siteName = branding?.siteName ?? 'GrowthPedia';
 
     return (
         <div className="flex min-h-screen items-center justify-center bg-gray-100 px-4 py-12">
             <div className="w-full max-w-md">
                 <div className="mb-8 text-center">
-                    <h1 className="text-3xl font-bold text-indigo-600">GrowthPedia</h1>
+                    {branding?.logoUrl ? (
+                        <div className="flex justify-center">
+                            <img src={branding.logoUrl} alt={siteName} className="h-10 w-auto" />
+                        </div>
+                    ) : null}
+                    <h1
+                        className="text-3xl font-bold"
+                        style={{ color: branding?.primaryColor ?? '#4F46E5' }}
+                    >
+                        {siteName}
+                    </h1>
                 </div>
 
                 {flash?.success && (

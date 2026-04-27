@@ -6,6 +6,13 @@ export interface User {
     emailVerifiedAt: string | null;
 }
 
+export interface SharedBranding {
+    siteName: string;
+    logoUrl: string | null;
+    primaryColor: string;
+    secondaryColor: string;
+}
+
 export interface PageProps {
     auth: {
         user: User | null;
@@ -17,5 +24,6 @@ export interface PageProps {
         success: string | null;
         error: string | null;
     };
+    branding: SharedBranding;
     [key: string]: unknown;
 }

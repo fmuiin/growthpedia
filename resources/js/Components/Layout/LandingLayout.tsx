@@ -7,17 +7,28 @@ interface LandingLayoutProps {
 }
 
 export default function LandingLayout({ children }: LandingLayoutProps) {
-    const { auth } = usePage<PageProps>().props;
+    const { auth, branding } = usePage<PageProps>().props;
+    const siteName = branding?.siteName ?? 'GrowthPedia';
+    const siteInitial = siteName.charAt(0).toUpperCase();
 
     return (
         <div className="min-h-screen bg-white text-gray-900">
             <header className="sticky top-0 z-50 border-b border-gray-100 bg-white/90 backdrop-blur-md">
                 <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6 lg:px-8">
                     <Link href="/" className="flex items-center gap-2">
-                        <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-gradient-to-br from-violet-600 to-indigo-600 text-sm font-bold text-white shadow-sm">
-                            G
-                        </span>
-                        <span className="text-lg font-semibold tracking-tight text-gray-900">GrowthPedia</span>
+                        {branding?.logoUrl ? (
+                            <img src={branding.logoUrl} alt={siteName} className="h-9 w-auto" />
+                        ) : (
+                            <span
+                                className="flex h-9 w-9 items-center justify-center rounded-lg text-sm font-bold text-white shadow-sm"
+                                style={{
+                                    background: `linear-gradient(to bottom right, ${branding?.primaryColor ?? '#7C3AED'}, ${branding?.secondaryColor ?? '#4F46E5'})`,
+                                }}
+                            >
+                                {siteInitial}
+                            </span>
+                        )}
+                        <span className="text-lg font-semibold tracking-tight text-gray-900">{siteName}</span>
                     </Link>
                     <nav className="hidden items-center gap-8 md:flex" aria-label="Primary">
                         <Link href="/catalog" className="text-sm font-medium text-gray-600 transition hover:text-gray-900">
@@ -75,10 +86,19 @@ export default function LandingLayout({ children }: LandingLayoutProps) {
                     <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-6 lg:gap-8">
                         <div className="lg:col-span-2">
                             <Link href="/" className="flex items-center gap-2">
-                                <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-gradient-to-br from-violet-600 to-indigo-600 text-sm font-bold text-white">
-                                    G
-                                </span>
-                                <span className="text-lg font-semibold text-white">GrowthPedia</span>
+                                {branding?.logoUrl ? (
+                                    <img src={branding.logoUrl} alt={siteName} className="h-9 w-auto" />
+                                ) : (
+                                    <span
+                                        className="flex h-9 w-9 items-center justify-center rounded-lg text-sm font-bold text-white"
+                                        style={{
+                                            background: `linear-gradient(to bottom right, ${branding?.primaryColor ?? '#7C3AED'}, ${branding?.secondaryColor ?? '#4F46E5'})`,
+                                        }}
+                                    >
+                                        {siteInitial}
+                                    </span>
+                                )}
+                                <span className="text-lg font-semibold text-white">{siteName}</span>
                             </Link>
                             <p className="mt-4 max-w-sm text-sm leading-relaxed text-gray-400">
                                 The modern way to deliver courses, track progress, and certify completions — built for
@@ -160,7 +180,7 @@ export default function LandingLayout({ children }: LandingLayoutProps) {
                         </div>
                     </div>
                     <div className="mt-12 border-t border-gray-800 pt-8 text-xs text-gray-500">
-                        <p>&copy; {new Date().getFullYear()} GrowthPedia. All rights reserved.</p>
+                        <p>&copy; {new Date().getFullYear()} {siteName}. All rights reserved.</p>
                     </div>
                 </div>
             </footer>

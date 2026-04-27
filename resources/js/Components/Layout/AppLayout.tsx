@@ -7,10 +7,11 @@ interface AppLayoutProps {
 }
 
 export default function AppLayout({ children }: AppLayoutProps) {
-    const { auth, subscription, flash } = usePage<PageProps>().props;
+    const { auth, subscription, flash, branding } = usePage<PageProps>().props;
     const resendForm = useForm({});
 
     const showVerificationBanner = auth.user && !auth.user.emailVerifiedAt;
+    const siteName = branding?.siteName ?? 'GrowthPedia';
 
     function handleResend(e: FormEvent) {
         e.preventDefault();
@@ -23,8 +24,16 @@ export default function AppLayout({ children }: AppLayoutProps) {
                 <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                     <div className="flex h-16 items-center justify-between">
                         <div className="flex items-center gap-8">
-                            <Link href="/" className="text-xl font-bold text-indigo-600">
-                                GrowthPedia
+                            <Link href="/" className="flex items-center gap-2">
+                                {branding?.logoUrl ? (
+                                    <img src={branding.logoUrl} alt={siteName} className="h-8 w-auto" />
+                                ) : null}
+                                <span
+                                    className="text-xl font-bold"
+                                    style={{ color: branding?.primaryColor ?? '#4F46E5' }}
+                                >
+                                    {siteName}
+                                </span>
                             </Link>
                             <div className="hidden items-center gap-6 sm:flex">
                                 <Link
