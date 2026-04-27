@@ -21,6 +21,7 @@ use App\Modules\Course\Models\Lesson;
 use App\Modules\Course\Services\CourseService;
 use App\Shared\Exceptions\EntityNotFoundException;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Event;
 use Tests\TestCase;
 
@@ -38,9 +39,10 @@ class CourseServiceTest extends TestCase
 
     public function test_create_course_returns_course_dto_with_draft_status(): void
     {
-        $user = User::factory()->create();
+        $user = User::factory()->create(['role' => 'admin']);
+        Auth::login($user);
+
         $dto = new CreateCourseDTO(
-            instructorId: $user->id,
             title: 'Laravel Basics',
             description: 'Learn Laravel',
             category: 'Programming',
@@ -49,7 +51,7 @@ class CourseServiceTest extends TestCase
         $result = $this->service->createCourse($dto);
 
         $this->assertInstanceOf(CourseDTO::class, $result);
-        $this->assertEquals($user->id, $result->instructorId);
+        $this->assertEquals($user->id, $result->createdBy);
         $this->assertEquals('Laravel Basics', $result->title);
         $this->assertEquals('Learn Laravel', $result->description);
         $this->assertEquals('Programming', $result->category);
@@ -59,9 +61,10 @@ class CourseServiceTest extends TestCase
 
     public function test_create_course_persists_to_database(): void
     {
-        $user = User::factory()->create();
+        $user = User::factory()->create(['role' => 'admin']);
+        Auth::login($user);
+
         $dto = new CreateCourseDTO(
-            instructorId: $user->id,
             title: 'Test Course',
             description: 'Description',
             category: 'Design',
@@ -78,9 +81,9 @@ class CourseServiceTest extends TestCase
 
     public function test_update_course_updates_only_non_null_fields(): void
     {
-        $user = User::factory()->create();
+        $user = User::factory()->create(['role' => 'admin']);
         $course = Course::create([
-            'instructor_id' => $user->id,
+            'created_by' => $user->id,
             'title' => 'Original',
             'description' => 'Original Desc',
             'category' => 'Original Cat',
@@ -101,9 +104,9 @@ class CourseServiceTest extends TestCase
 
     public function test_add_module_returns_module_dto_with_empty_lessons(): void
     {
-        $user = User::factory()->create();
+        $user = User::factory()->create(['role' => 'admin']);
         $course = Course::create([
-            'instructor_id' => $user->id,
+            'created_by' => $user->id,
             'title' => 'Course',
             'description' => 'Desc',
             'category' => 'Cat',
@@ -126,9 +129,9 @@ class CourseServiceTest extends TestCase
 
     public function test_add_lesson_returns_lesson_dto(): void
     {
-        $user = User::factory()->create();
+        $user = User::factory()->create(['role' => 'admin']);
         $course = Course::create([
-            'instructor_id' => $user->id,
+            'created_by' => $user->id,
             'title' => 'Course',
             'description' => 'Desc',
             'category' => 'Cat',
@@ -162,9 +165,9 @@ class CourseServiceTest extends TestCase
 
     public function test_publish_course_sets_status_and_published_at(): void
     {
-        $user = User::factory()->create();
+        $user = User::factory()->create(['role' => 'admin']);
         $course = Course::create([
-            'instructor_id' => $user->id,
+            'created_by' => $user->id,
             'title' => 'Course',
             'description' => 'Desc',
             'category' => 'Cat',
@@ -186,9 +189,9 @@ class CourseServiceTest extends TestCase
 
     public function test_publish_course_with_zero_lessons_throws_exception(): void
     {
-        $user = User::factory()->create();
+        $user = User::factory()->create(['role' => 'admin']);
         $course = Course::create([
-            'instructor_id' => $user->id,
+            'created_by' => $user->id,
             'title' => 'Empty Course',
             'description' => 'Desc',
             'category' => 'Cat',
@@ -207,9 +210,9 @@ class CourseServiceTest extends TestCase
 
     public function test_unpublish_course_sets_status_to_unpublished(): void
     {
-        $user = User::factory()->create();
+        $user = User::factory()->create(['role' => 'admin']);
         $course = Course::create([
-            'instructor_id' => $user->id,
+            'created_by' => $user->id,
             'title' => 'Course',
             'description' => 'Desc',
             'category' => 'Cat',
@@ -230,9 +233,9 @@ class CourseServiceTest extends TestCase
 
     public function test_get_course_with_structure_returns_modules_and_lessons_in_sort_order(): void
     {
-        $user = User::factory()->create(['name' => 'Jane Doe']);
+        $user = User::factory()->create(['name' => 'Jane Doe', 'role' => 'admin']);
         $course = Course::create([
-            'instructor_id' => $user->id,
+            'created_by' => $user->id,
             'title' => 'Structured Course',
             'description' => 'Desc',
             'category' => 'Cat',
@@ -248,7 +251,7 @@ class CourseServiceTest extends TestCase
         $result = $this->service->getCourseWithStructure($course->id);
 
         $this->assertInstanceOf(CourseDetailDTO::class, $result);
-        $this->assertEquals('Jane Doe', $result->instructorName);
+        $this->assertEquals($user->id, $result->createdBy);
         $this->assertCount(2, $result->modules);
         $this->assertEquals('First Module', $result->modules[0]->title);
         $this->assertEquals('Second Module', $result->modules[1]->title);
@@ -269,9 +272,9 @@ class CourseServiceTest extends TestCase
     {
         Event::fake();
 
-        $user = User::factory()->create();
+        $user = User::factory()->create(['role' => 'admin']);
         $course = Course::create([
-            'instructor_id' => $user->id,
+            'created_by' => $user->id,
             'title' => 'Course',
             'description' => 'Desc',
             'category' => 'Cat',

@@ -21,17 +21,17 @@ class CoursePolicy
 
     public function create(User $user): bool
     {
-        return in_array($user->role, ['instructor', 'admin'], true);
+        return $user->role === 'admin';
     }
 
     public function update(User $user, Course $course): bool
     {
-        return $user->role === 'admin' || $course->instructor_id === $user->id;
+        return $user->role === 'admin';
     }
 
     public function publish(User $user, Course $course): bool
     {
-        return $user->role === 'admin' || $course->instructor_id === $user->id;
+        return $user->role === 'admin';
     }
 
     public function delete(User $user, Course $course): bool
@@ -40,6 +40,6 @@ class CoursePolicy
             return false;
         }
 
-        return $user->role === 'admin' || $course->instructor_id === $user->id;
+        return $user->role === 'admin';
     }
 }

@@ -19,7 +19,7 @@ class LessonModelTest extends TestCase
     {
         $user = User::factory()->create();
         $course = Course::create([
-            'instructor_id' => $user->id,
+            'created_by' => $user->id,
             'title' => 'Test Course',
             'description' => 'Description',
             'category' => 'Design',

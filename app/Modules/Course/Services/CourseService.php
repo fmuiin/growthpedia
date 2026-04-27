@@ -20,13 +20,14 @@ use App\Modules\Course\Models\CourseModule;
 use App\Modules\Course\Models\Lesson;
 use App\Shared\Exceptions\EntityNotFoundException;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 class CourseService implements CourseServiceInterface
 {
     public function createCourse(CreateCourseDTO $dto): CourseDTO
     {
         $course = Course::create([
-            'instructor_id' => $dto->instructorId,
+            'created_by' => Auth::id(),
             'title' => $dto->title,
             'description' => $dto->description,
             'category' => $dto->category,
@@ -141,7 +142,7 @@ class CourseService implements CourseServiceInterface
 
     public function getCourseWithStructure(int $courseId): CourseDetailDTO
     {
-        $course = Course::with(['instructor', 'modules.lessons'])->find($courseId);
+        $course = Course::with(['modules.lessons'])->find($courseId);
 
         if ($course === null) {
             throw new EntityNotFoundException("Course not found.");
@@ -169,8 +170,7 @@ class CourseService implements CourseServiceInterface
 
         return new CourseDetailDTO(
             id: $course->id,
-            instructorId: $course->instructor_id,
-            instructorName: $course->instructor->name,
+            createdBy: $course->created_by,
             title: $course->title,
             description: $course->description,
             category: $course->category,
@@ -199,7 +199,7 @@ class CourseService implements CourseServiceInterface
     {
         return new CourseDTO(
             id: $course->id,
-            instructorId: $course->instructor_id,
+            createdBy: $course->created_by,
             title: $course->title,
             description: $course->description,
             category: $course->category,

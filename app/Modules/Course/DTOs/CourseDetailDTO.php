@@ -14,8 +14,7 @@ readonly class CourseDetailDTO extends BaseDTO
      */
     public function __construct(
         public int $id,
-        public int $instructorId,
-        public string $instructorName,
+        public int $createdBy,
         public string $title,
         public string $description,
         public string $category,

@@ -14,7 +14,6 @@ use App\Modules\Course\Requests\CreateCourseRequest;
 use App\Modules\Course\Requests\UpdateCourseRequest;
 use App\Shared\Exceptions\EntityNotFoundException;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -27,10 +26,7 @@ class CourseController extends Controller
 
     public function index(): Response
     {
-        $user = Auth::user();
-        $courses = Course::where('instructor_id', $user->id)
-            ->orderByDesc('created_at')
-            ->get();
+        $courses = Course::orderByDesc('created_at')->get();
 
         return Inertia::render('Course/CourseList', [
             'courses' => $courses,
@@ -44,10 +40,7 @@ class CourseController extends Controller
 
     public function store(CreateCourseRequest $request): RedirectResponse
     {
-        $user = Auth::user();
-
         $dto = new CreateCourseDTO(
-            instructorId: $user->id,
             title: $request->validated('title'),
             description: $request->validated('description'),
             category: $request->validated('category'),

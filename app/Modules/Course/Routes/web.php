@@ -7,8 +7,8 @@ use App\Modules\Course\Controllers\LessonController;
 use App\Modules\Course\Controllers\ModuleController;
 use Illuminate\Support\Facades\Route;
 
-// Instructor/Admin course management routes
-Route::middleware(['web', 'auth', 'role:instructor,admin'])->group(function (): void {
+// Admin course management routes
+Route::middleware(['web', 'auth', 'role:admin'])->group(function (): void {
     Route::get('/courses', [CourseController::class, 'index'])->name('courses.index');
     Route::get('/courses/create', [CourseController::class, 'create'])->name('courses.create');
     Route::post('/courses', [CourseController::class, 'store'])->name('courses.store');

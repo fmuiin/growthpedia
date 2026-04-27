@@ -9,7 +9,6 @@ use App\Shared\DTOs\BaseDTO;
 readonly class CreateCourseDTO extends BaseDTO
 {
     public function __construct(
-        public int $instructorId,
         public string $title,
         public string $description,
         public string $category,

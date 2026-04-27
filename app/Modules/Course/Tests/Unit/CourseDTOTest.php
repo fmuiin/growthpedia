@@ -20,13 +20,11 @@ class CourseDTOTest extends TestCase
     public function test_create_course_dto_construction(): void
     {
         $dto = new CreateCourseDTO(
-            instructorId: 1,
             title: 'PHP Basics',
             description: 'Learn PHP',
             category: 'Programming',
         );
 
-        $this->assertEquals(1, $dto->instructorId);
         $this->assertEquals('PHP Basics', $dto->title);
         $this->assertEquals('Learn PHP', $dto->description);
         $this->assertEquals('Programming', $dto->category);
@@ -35,7 +33,6 @@ class CourseDTOTest extends TestCase
     public function test_create_course_dto_to_array(): void
     {
         $dto = new CreateCourseDTO(
-            instructorId: 1,
             title: 'PHP Basics',
             description: 'Learn PHP',
             category: 'Programming',
@@ -43,7 +40,6 @@ class CourseDTOTest extends TestCase
 
         $array = $dto->toArray();
         $this->assertEquals([
-            'instructorId' => 1,
             'title' => 'PHP Basics',
             'description' => 'Learn PHP',
             'category' => 'Programming',
@@ -64,7 +60,7 @@ class CourseDTOTest extends TestCase
         $now = new DateTimeImmutable();
         $dto = new CourseDTO(
             id: 1,
-            instructorId: 2,
+            createdBy: 2,
             title: 'Course',
             description: 'Desc',
             category: 'Cat',
@@ -74,6 +70,7 @@ class CourseDTOTest extends TestCase
         );
 
         $this->assertEquals(1, $dto->id);
+        $this->assertEquals(2, $dto->createdBy);
         $this->assertEquals('draft', $dto->status);
         $this->assertNull($dto->publishedAt);
         $this->assertSame($now, $dto->createdAt);
@@ -101,8 +98,7 @@ class CourseDTOTest extends TestCase
 
         $dto = new CourseDetailDTO(
             id: 1,
-            instructorId: 2,
-            instructorName: 'John Doe',
+            createdBy: 2,
             title: 'Course',
             description: 'Desc',
             category: 'Cat',
@@ -114,7 +110,7 @@ class CourseDTOTest extends TestCase
         $this->assertCount(1, $dto->modules);
         $this->assertEquals('Module 1', $dto->modules[0]->title);
         $this->assertCount(1, $dto->modules[0]->lessons);
-        $this->assertEquals('John Doe', $dto->instructorName);
+        $this->assertEquals(2, $dto->createdBy);
     }
 
     public function test_create_module_dto_construction(): void

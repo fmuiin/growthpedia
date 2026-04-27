@@ -40,17 +40,30 @@ return new class extends Migration
 
         // Step 3: Update the role CHECK constraint to remove 'instructor'.
         // The column is already VARCHAR with a CHECK constraint from the original enum migration.
-        DB::statement("ALTER TABLE users DROP CONSTRAINT IF EXISTS users_role_check");
+        $driver = DB::connection()->getDriverName();
 
-        // Step 4: Add the new CHECK constraint allowing only 'learner' and 'admin'.
-        DB::statement("ALTER TABLE users ADD CONSTRAINT users_role_check CHECK (role IN ('learner', 'admin'))");
+        if ($driver === 'sqlite') {
+            // SQLite does not support ALTER TABLE DROP/ADD CONSTRAINT.
+            // CHECK constraints in SQLite are defined at table creation and cannot be modified.
+            // For SQLite (used in tests), we skip constraint modification — the application
+            // layer enforces valid roles via validation rules.
+        } else {
+            DB::statement("ALTER TABLE users DROP CONSTRAINT IF EXISTS users_role_check");
+
+            // Step 4: Add the new CHECK constraint allowing only 'learner' and 'admin'.
+            DB::statement("ALTER TABLE users ADD CONSTRAINT users_role_check CHECK (role IN ('learner', 'admin'))");
+        }
     }
 
     public function down(): void
     {
-        // Remove the CHECK constraint and restore the original enum with 'instructor'.
-        DB::statement("ALTER TABLE users DROP CONSTRAINT IF EXISTS users_role_check");
-        DB::statement("ALTER TABLE users ADD CONSTRAINT users_role_check CHECK (role IN ('learner', 'instructor', 'admin'))");
-        DB::statement("ALTER TABLE users ALTER COLUMN role SET DEFAULT 'learner'");
+        $driver = DB::connection()->getDriverName();
+
+        if ($driver !== 'sqlite') {
+            // Remove the CHECK constraint and restore the original enum with 'instructor'.
+            DB::statement("ALTER TABLE users DROP CONSTRAINT IF EXISTS users_role_check");
+            DB::statement("ALTER TABLE users ADD CONSTRAINT users_role_check CHECK (role IN ('learner', 'instructor', 'admin'))");
+            DB::statement("ALTER TABLE users ALTER COLUMN role SET DEFAULT 'learner'");
+        }
     }
 };

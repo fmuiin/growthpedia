@@ -70,17 +70,17 @@
   - [x] 10.3 Create migration to update users role enum constraint: drop old constraint, add new constraint allowing only 'learner' and 'admin'; include orphaned course handling (reassign to first admin)
   - [x] 10.4 Run migrations and verify: zero instructor users, all courses have valid created_by, role constraint enforced
 
-- [ ] 11. Update Course module for single-creator ownership
-  - [ ] 11.1 Update `Course` model: rename `instructor_id` in fillable to `created_by`, rename `instructor()` relationship to `creator()`, update any references
-  - [ ] 11.2 Update `CreateCourseDTO`: remove `instructorId` field, keep only title, description, category
-  - [ ] 11.3 Update `CourseDTO`: replace `instructorId` with `createdBy`
-  - [ ] 11.4 Update `CourseDetailDTO`: remove `instructorId` and `instructorName` fields, add `createdBy`
-  - [ ] 11.5 Update `CourseService::createCourse()`: set `created_by` from `Auth::id()` instead of `$dto->instructorId`
-  - [ ] 11.6 Update `CourseService::getCourseWithStructure()`: remove instructor eager-loading and instructorName from CourseDetailDTO construction
-  - [ ] 11.7 Simplify `CoursePolicy`: all methods check only `$user->role === 'admin'`, remove `$course->instructor_id === $user->id` checks
-  - [ ] 11.8 Update `CourseController::index()`: list all courses for admin instead of filtering by `instructor_id`
-  - [ ] 11.9 Update `CourseController::store()`: remove `instructorId` from CreateCourseDTO construction
-  - [ ] 11.10 Update Course `Routes/web.php`: change middleware from `role:instructor,admin` to `role:admin`
+- [x] 11. Update Course module for single-creator ownership
+  - [x] 11.1 Update `Course` model: rename `instructor_id` in fillable to `created_by`, rename `instructor()` relationship to `creator()`, update any references
+  - [x] 11.2 Update `CreateCourseDTO`: remove `instructorId` field, keep only title, description, category
+  - [x] 11.3 Update `CourseDTO`: replace `instructorId` with `createdBy`
+  - [x] 11.4 Update `CourseDetailDTO`: remove `instructorId` and `instructorName` fields, add `createdBy`
+  - [x] 11.5 Update `CourseService::createCourse()`: set `created_by` from `Auth::id()` instead of `$dto->instructorId`
+  - [x] 11.6 Update `CourseService::getCourseWithStructure()`: remove instructor eager-loading and instructorName from CourseDetailDTO construction
+  - [x] 11.7 Simplify `CoursePolicy`: all methods check only `$user->role === 'admin'`, remove `$course->instructor_id === $user->id` checks
+  - [x] 11.8 Update `CourseController::index()`: list all courses for admin instead of filtering by `instructor_id`
+  - [x] 11.9 Update `CourseController::store()`: remove `instructorId` from CreateCourseDTO construction
+  - [x] 11.10 Update Course `Routes/web.php`: change middleware from `role:instructor,admin` to `role:admin`
 
 - [ ] 12. Update User module for simplified roles
   - [ ] 12.1 Update `UserService::VALID_ROLES` constant from `['learner', 'instructor', 'admin']` to `['learner', 'admin']`

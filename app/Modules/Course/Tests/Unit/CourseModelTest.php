@@ -15,25 +15,25 @@ class CourseModelTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function test_course_belongs_to_instructor(): void
+    public function test_course_belongs_to_creator(): void
     {
         $user = User::factory()->create();
         $course = Course::create([
-            'instructor_id' => $user->id,
+            'created_by' => $user->id,
             'title' => 'Test Course',
             'description' => 'A test course description',
             'category' => 'Programming',
         ]);
 
-        $this->assertInstanceOf(User::class, $course->instructor);
-        $this->assertEquals($user->id, $course->instructor->id);
+        $this->assertInstanceOf(User::class, $course->creator);
+        $this->assertEquals($user->id, $course->creator->id);
     }
 
     public function test_course_has_many_modules(): void
     {
         $user = User::factory()->create();
         $course = Course::create([
-            'instructor_id' => $user->id,
+            'created_by' => $user->id,
             'title' => 'Test Course',
             'description' => 'Description',
             'category' => 'Design',
@@ -49,7 +49,7 @@ class CourseModelTest extends TestCase
     {
         $user = User::factory()->create();
         $course = Course::create([
-            'instructor_id' => $user->id,
+            'created_by' => $user->id,
             'title' => 'Test Course',
             'description' => 'Description',
             'category' => 'Design',
@@ -67,7 +67,7 @@ class CourseModelTest extends TestCase
     {
         $user = User::factory()->create();
         $course = Course::create([
-            'instructor_id' => $user->id,
+            'created_by' => $user->id,
             'title' => 'Test Course',
             'description' => 'Description',
             'category' => 'Design',
@@ -89,7 +89,7 @@ class CourseModelTest extends TestCase
     {
         $user = User::factory()->create();
         $course = Course::create([
-            'instructor_id' => $user->id,
+            'created_by' => $user->id,
             'title' => 'Test Course',
             'description' => 'Description',
             'category' => 'Design',
@@ -103,7 +103,7 @@ class CourseModelTest extends TestCase
     {
         $user = User::factory()->create();
         $course = Course::create([
-            'instructor_id' => $user->id,
+            'created_by' => $user->id,
             'title' => 'Test Course',
             'description' => 'Description',
             'category' => 'Design',
